@@ -5,6 +5,7 @@ import { AdminHoursSettings } from './../../models/admin-hours-settings';
 import { AdminProvider } from './../../providers/admin/admin';
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { MeshPage } from '../mesh/mesh';
 
 @Component({
   selector: 'page-setting',
@@ -58,7 +59,7 @@ export class SettingPage implements OnInit {
   ngOnInit() {
     this.adminProvider.getCurrentSunsetAndSunDown()
       .subscribe((hoursSettings: AdminHoursSettings) => {
-        if(hoursSettings.on) 
+        if(hoursSettings.on)
             this.selectedOpeningHour = this.initHoursFormat(hoursSettings.on);
         else
             this.selectedOpeningHour = "sunset+" + hoursSettings.on_offset;
@@ -67,7 +68,7 @@ export class SettingPage implements OnInit {
             this.selectedClosingHour = this.initHoursFormat(hoursSettings.off);
         else
             // Minus sign is already there
-            this.selectedClosingHour = "sunrise-" + Math.abs(Number(hoursSettings.off_offset)); 
+            this.selectedClosingHour = "sunrise-" + Math.abs(Number(hoursSettings.off_offset));
       });
 
     this.authentication.isFacadeUp()
@@ -106,6 +107,9 @@ export class SettingPage implements OnInit {
     this.navCtrl.pop();
   }
 
+  goToMeshPage() {
+    this.navCtrl.push(MeshPage);
+  }
   /**
    * Admin Actions
    */
