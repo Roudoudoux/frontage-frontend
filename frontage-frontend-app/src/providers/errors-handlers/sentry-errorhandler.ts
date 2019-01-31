@@ -20,23 +20,25 @@ export class SentryErrorHandler extends IonicErrorHandler {
     }
 
     handleError(error) {
-        
+
         try {
             let errorToSend = error;
 
             if (errorToSend != undefined && errorToSend.status == 0) {
-                // Status 0 means we lost connection 
+                // Status 0 means we lost connection
                 if(!this.isToastVisible) {
                     this.isToastVisible = true;
                     this.showToast("CONNECTION_LOST");
                 }
             } else {
-                Raven.captureException(error.originalError || error);
+                //Raven.captureException(error.originalError || error);
+                throw error;
             }
         }
         catch (e) {
-            alert("erreur en plus : " + e);
-            console.error(e);
+            throw error;
+            //alert("erreur en plus : " + e);
+            //console.error(e);
         }
     }
 
@@ -55,7 +57,7 @@ export class SentryErrorHandler extends IonicErrorHandler {
         });
 
         toast.present();
-        
+
         this.vibration.vibrate([1000]);
     }
 
