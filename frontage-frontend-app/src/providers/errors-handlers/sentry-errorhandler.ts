@@ -31,14 +31,14 @@ export class SentryErrorHandler extends IonicErrorHandler {
                     this.showToast("CONNECTION_LOST");
                 }
             } else {
-                //Raven.captureException(error.originalError || error);
                 throw error;
+                //Raven.captureException(error.originalError || error);
             }
         }
         catch (e) {
+        //    alert("erreur en plus : " + e);
+        //    console.error(e);
             throw error;
-            //alert("erreur en plus : " + e);
-            //console.error(e);
         }
     }
 

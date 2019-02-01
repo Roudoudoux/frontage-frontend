@@ -5,13 +5,12 @@ import { AdminHoursSettings } from './../../models/admin-hours-settings';
 import { AdminProvider } from './../../providers/admin/admin';
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { MeshPage } from '../mesh/mesh';
 
 @Component({
-  selector: 'page-meh',
+  selector: 'page-mesh',
   templateUrl: 'mesh.html',
 })
-export class MeshPage implements OnInit {
+export class MeshPage {
 
   selectedFrontageState: boolean = false;
   openingHourList: String[] = [];
@@ -110,6 +109,8 @@ export class MeshPage implements OnInit {
 
           this.markedPixels.push(event);
           event.target.style.background = '#299a29';
+
+          // setPixelPosition(row, column);
       }
           console.log(event.target);
   }
@@ -118,6 +119,7 @@ export class MeshPage implements OnInit {
       if (this.markedPixels.length > 0) {
           var button = this.markedPixels.pop();
           button.target.style.background = '#ffffff';
+          // cancelPixelPosition();
       }
   }
 
@@ -148,7 +150,7 @@ export class MeshPage implements OnInit {
   }
 
   goToMeshPage() {
-    this.navCtrl.push(MeshPage);
+    //this.navCtrl.push(MeshPage);
   }
   /**
    * Admin Actions

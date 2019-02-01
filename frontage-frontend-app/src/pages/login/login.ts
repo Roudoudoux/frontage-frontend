@@ -10,7 +10,7 @@ import { TimeProvider } from './../../providers/time/time';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { AuthenticationProvider } from '../../providers/authentication/authentication';
 import { NicknameGeneratorProvider } from '../../providers/nickname-generator/nickname-generator';
-import { SettingPage } from '../setting/setting';
+import { SettingPage } from './../setting/setting';
 
 
 @Component({
@@ -125,7 +125,7 @@ export class LoginPage {
   pushPage(isAuthenticated: boolean) {
     if (true) {
       //Save the user name in the local storage
-      //this.localStorageProvider.setUserName(this.userName);
+      this.localStorageProvider.setUserName(this.userName);
 
       //Change page
       this.navCtrl.push(SettingPage);

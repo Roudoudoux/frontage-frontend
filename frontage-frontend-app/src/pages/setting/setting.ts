@@ -22,10 +22,6 @@ export class SettingPage implements OnInit {
 
   lifetime: number;
 
-  buildingWidth: number;
-  buildingHeight: number;
-  grid: Array<Array<string>>; //array of arrays
-
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public adminProvider: AdminProvider,
@@ -83,16 +79,6 @@ export class SettingPage implements OnInit {
       .subscribe(res => {
         this.lifetime = res;
       });
-
-  }
-
-  validateDimensions() {
-      console.log("dale");
-      this.grid = new Array(this.buildingHeight);
-      for (let i = 0; i < this.buildingHeight; i+=2) { //iterate images
-          this.grid[i] = Array(this.buildingWidth); //declare two elements per row
-      }
-
   }
 
   private initHoursFormat(hoursFromBack: String): String {
@@ -124,6 +110,7 @@ export class SettingPage implements OnInit {
   goToMeshPage() {
     this.navCtrl.push(MeshPage);
   }
+
   /**
    * Admin Actions
    */
