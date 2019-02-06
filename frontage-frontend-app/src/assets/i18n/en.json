@@ -39,7 +39,7 @@
     "LOGIN_PAGE_ACCESS_ERROR":"Your username or password is incorrect",
     "LOGIN_PAGE_TETRIS_INVITATION":"Otherwise, while you're waiting Arbalet Frontage to be available, try our offline game:",
     "TETRIS_BLOCK":"Play Tetris Blocks (offline)",
- 
+
     "LOGIN_PAGE_FRONTAGE_NOT_AVAILABLE_EXPLANATION_STEP1": "Approach the entrance of A1 building of Bordeaux University",
     "LOGIN_PAGE_FRONTAGE_NOT_AVAILABLE_EXPLANATION_STEP2": "Start the Wifi connection of your smartphone and select network ARBALET_FRONTAGE",
     "LOGIN_PAGE_FRONTAGE_NOT_AVAILABLE_EXPLANATION_STEP3": "Come back here, et voila!",
@@ -104,6 +104,13 @@
     "SETTINGS_PAGE_BACK_BUTTON":"Back to list",
     "SETTINGS_PAGE_UNFORCE_BUTTON":"Unforce app",
     "SETTINGS_PAGE_DEFAULT_LIFETIME": "Lifetime of default apps",
+
+    "MESH_PAGE_HEIGHT_LABEL": "Amount of vertical pixels",
+    "MESH_PAGE_WIDTH_LABEL": "Amount of horizontal pixels",
+    "MESH_VALIDATION_BUTTON": "Submit dimensions",
+    "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Undo last placement",
+    "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Submit pixels' placement",
+
 
     "GET_OUT":"Sorry, you can no longer play.",
     "GAME_OVER":"Game Over, you lose :)",
@@ -234,4 +241,3 @@
     "VIETNAM": "Vietnam",
     "YEMEN": "Yemen"
 }
-
