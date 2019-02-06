@@ -98,6 +98,12 @@ export class MeshPage {
           }
       }
 
+      let dimensions = {
+          width: this.buildingWidth,
+          height: this.buildingHeight
+      }
+      this.adminProvider.setBuildingDimensions(dimensions).subscribe();
+
   }
 
   matrixTouched(element: number, event: event) {
@@ -110,7 +116,12 @@ export class MeshPage {
           this.markedPixels.push(event);
           event.target.style.background = '#299a29';
 
-          // setPixelPosition(row, column);
+          let position = {
+              row = row,
+              column = column
+          }
+
+          this.adminProvider.setPixelPosition(position).subscribe();
       }
           console.log(event.target);
   }
@@ -119,7 +130,7 @@ export class MeshPage {
       if (this.markedPixels.length > 0) {
           var button = this.markedPixels.pop();
           button.target.style.background = '#ffffff';
-          // cancelPixelPosition();
+          this.adminProvider.resetPixelPosition().subscribe();
       }
   }
 

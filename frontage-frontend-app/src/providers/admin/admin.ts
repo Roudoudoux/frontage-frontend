@@ -122,4 +122,26 @@ export class AdminProvider {
       .post(this.baseUrl + "/b/apps/drawing/default" , {})
       .catch(error => Observable.of(error));
   }
+
+
+// arbalet mesh additions
+  public setBuildingDimensions(body): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/b/admin/settings/mesh/dimensions", body)
+      .catch(error => Observable.of(error));
+  }
+
+  public setPixelPosition(body): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/b/admin/settings/mesh/pixel/set", body)
+      .catch(error => Observable.of(error));
+  }
+
+  public resetPixelPosition(): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/b/admin/settings/mesh/pixel/reset")
+      .catch(error => Observable.of(error));
+  }
+
+
 }

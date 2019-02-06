@@ -150,7 +150,7 @@ export class SettingPage implements OnInit {
     }
   }
 
-  unForceFApp() {
+  unForceFApp() { 
     this.vibration.vibrate(50)
     this.adminProvider.unForceFApp().subscribe();
   }
