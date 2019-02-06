@@ -10,8 +10,6 @@ import { TimeProvider } from './../../providers/time/time';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { AuthenticationProvider } from '../../providers/authentication/authentication';
 import { NicknameGeneratorProvider } from '../../providers/nickname-generator/nickname-generator';
-import { SettingPage } from './../setting/setting';
-
 
 @Component({
   selector: 'page-login',
@@ -123,16 +121,15 @@ export class LoginPage {
    * @param isAuthenticated
    */
   pushPage(isAuthenticated: boolean) {
-    if (true) {
+    if (isAuthenticated) {
       //Save the user name in the local storage
       this.localStorageProvider.setUserName(this.userName);
 
       //Change page
-      this.navCtrl.push(SettingPage);
+      this.navCtrl.push(FAppListPage);
+    } else {
+      this.isRefused = true;
     }
-    // else {
-    //   this.isRefused = true;
-    // }
   }
 
   displayPwd() {
@@ -150,7 +147,7 @@ export class LoginPage {
   headerTapEvent(event) {
     this.nbHeaderTapped++;
 
-    if (this.nbHeaderTapped > 1) {
+    if (this.nbHeaderTapped > 8) {
       this.displayPwd();
       this.userName = '';
     }
