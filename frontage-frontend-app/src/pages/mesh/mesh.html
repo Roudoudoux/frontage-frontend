@@ -4,11 +4,13 @@
 
 <ion-content padding class="bg">
     <ion-item class="item-settings">
-      <ion-input placeholder="{{'MESH_PAGE_HEIGHT_LABEL' | translate}}" [(ngModel)]="buildingHeight" type="number" clearInput></ion-input>
+        <ion-label>{{'MESH_PAGE_HEIGHT_LABEL' | translate}}</ion-label>
+        <ion-input [(ngModel)]="buildingHeight" type="number" clearInput></ion-input>
     </ion-item>
 
-    <ion-item class="item-settings">
-      <ion-input placeholder="{{'MESH_PAGE_WIDTH_LABEL' | translate}}" [(ngModel)]="buildingWidth" type="number" clearInput></ion-input>
+    <ion-item item-text-wrap class="item-settings">
+        <ion-label text-wrap>{{'MESH_PAGE_WIDTH_LABEL' | translate}}</ion-label>
+        <ion-input [(ngModel)]="buildingWidth" type="number" clearInput></ion-input>
     </ion-item>
 
 
@@ -19,7 +21,9 @@
       </button>
     </ion-item>
 
-
+    <ion-card>
+      <ion-card-header text-wrap id="text">{{'MESH_PAGE_INSTRUCTION' | translate}} </ion-card-header>
+    </ion-card>
 
     <ion-grid>
         <ion-row no-padding no-margin *ngFor="let row of grid">

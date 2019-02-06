@@ -117,8 +117,8 @@ export class MeshPage {
           event.target.style.background = '#299a29';
 
           let position = {
-              row = row,
-              column = column
+              row: row,
+              column: column
           }
 
           this.adminProvider.setPixelPosition(position).subscribe();
