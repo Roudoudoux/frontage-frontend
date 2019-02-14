@@ -139,7 +139,7 @@ export class AdminProvider {
 
   public resetPixelPosition(): Observable<any> {
     return this.http
-      .post(this.baseUrl + "/b/admin/settings/mesh/pixel/reset")
+      .post(this.baseUrl + "/b/admin/settings/mesh/pixel/reset", {})
       .catch(error => Observable.of(error));
   }
 

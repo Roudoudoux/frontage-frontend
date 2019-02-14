@@ -23,8 +23,8 @@ export class MeshPage {
 
   buildingWidth: number;
   buildingHeight: number;
-  grid: Array<Array<string>>; //array of arrays
-  markedPixels: Array<event> = new Array();
+  grid: Array<Array<number>>; //array of arrays
+  markedPixels: Array<HTMLButtonElement> = new Array();
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -106,15 +106,15 @@ export class MeshPage {
 
   }
 
-  matrixTouched(element: number, event: event) {
-
+  matrixTouched(element: number, event: Event) {
+      let targetElement : HTMLButtonElement = event.target as HTMLButtonElement;
       // need to change it, but for now it states that this position was already selected
-      if (event.target.style.background != '#299a29') {
-          var row = Math.floor(element/this.buildingHeight);
-          var column = Math.floor(element%this.buildingWidth);
+      if (targetElement.style.background != '#299a29') {
+          let row : number = Math.floor(element/this.buildingHeight);
+          let column : number = Math.floor(element%this.buildingWidth);
 
-          this.markedPixels.push(event);
-          event.target.style.background = '#299a29';
+          this.markedPixels.push(targetElement);
+          targetElement.style.background = '#299a29';
 
           let position = {
               row: row,
@@ -128,8 +128,8 @@ export class MeshPage {
 
   undoPixel() {
       if (this.markedPixels.length > 0) {
-          var button = this.markedPixels.pop();
-          button.target.style.background = '#ffffff';
+          let targetElement : HTMLButtonElement = this.markedPixels.pop();
+          targetElement.style.background = '#ffffff';
           this.adminProvider.resetPixelPosition().subscribe();
       }
   }
