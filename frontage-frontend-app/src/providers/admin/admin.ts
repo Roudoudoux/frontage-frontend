@@ -140,13 +140,13 @@ export class AdminProvider {
 
   public resetPixelPosition(): Observable<any> {
     return this.http
-      .post(this.baseUrl + "/b/admin/settings/mesh/pixel/reset")
+      .post(this.baseUrl + "/b/admin/settings/mesh/pixel/reset", {})
       .catch(error => Observable.of(error));
   }
 
   public confirmPixelsPosition(): Observable<any> {
     return this.http
-      .post(this.baseUrl + "/b/admin/settings/mesh/pixel/confirm")
+      .post(this.baseUrl + "/b/admin/settings/mesh/pixel/confirm", {})
       .catch(error => Observable.of(error));
 
   }
