@@ -132,6 +132,7 @@ export class AdminProvider {
   }
 
   public setPixelPosition(body): Observable<any> {
+
     return this.http
       .post(this.baseUrl + "/b/admin/settings/mesh/pixel/set", body)
       .catch(error => Observable.of(error));
@@ -143,5 +144,10 @@ export class AdminProvider {
       .catch(error => Observable.of(error));
   }
 
+  public confirmPixelsPosition(): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/b/admin/settings/mesh/pixel/confirm")
+      .catch(error => Observable.of(error));
 
+  }
 }

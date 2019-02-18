@@ -10,17 +10,12 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-mesh',
   templateUrl: 'mesh.html',
 })
+
+
 export class MeshPage {
 
-  selectedFrontageState: boolean = false;
-  openingHourList: String[] = [];
-  closingHourList: String[] = [];
-  frontageStateList: any[] = [];
-  selectedOpeningHour: String;
-  selectedClosingHour: String;
 
   lifetime: number;
-
   buildingWidth: number;
   buildingHeight: number;
   grid: Array<Array<string>>; //array of arrays
@@ -33,58 +28,29 @@ export class MeshPage {
     public translateService: TranslateService,
     public vibration: Vibration) {
 
-    this.initHourList("sunset+", this.openingHourList);
-    this.initHourList("sunrise-", this.closingHourList);
     this.translateService.get("ON_MESSAGE").subscribe(res => {
       let on = {
         value: "on",
         label: res
       };
-      this.frontageStateList.push(on);
     });
     this.translateService.get("OFF_MESSAGE").subscribe(res => {
       let off = {
         value: "off",
         label: res
       };
-      this.frontageStateList.push(off);
     });
     this.translateService.get("SCHEDULER_MESSAGE").subscribe(res => {
       let scheduled = {
         value: "scheduled",
         label: res
       };
-      this.frontageStateList.push(scheduled);
     });
   }
   /**
    * Init data
    */
-  ngOnInit() {
-    this.adminProvider.getCurrentSunsetAndSunDown()
-      .subscribe((hoursSettings: AdminHoursSettings) => {
-        if(hoursSettings.on)
-            this.selectedOpeningHour = this.initHoursFormat(hoursSettings.on);
-        else
-            this.selectedOpeningHour = "sunset+" + hoursSettings.on_offset;
-
-        if(hoursSettings.off)
-            this.selectedClosingHour = this.initHoursFormat(hoursSettings.off);
-        else
-            // Minus sign is already there
-            this.selectedClosingHour = "sunrise-" + Math.abs(Number(hoursSettings.off_offset));
-      });
-
-    this.authentication.isFacadeUp()
-      .subscribe(res => {
-        this.selectedFrontageState = res.state
-      });
-    this.adminProvider.getLifetime()
-      .subscribe(res => {
-        this.lifetime = res;
-      });
-
-  }
+  ngOnInit() {  }
 
   validateDimensions() {
       console.log(this.buildingHeight + ", " + this.buildingWidth);
@@ -102,7 +68,11 @@ export class MeshPage {
           width: this.buildingWidth,
           height: this.buildingHeight
       }
-      this.adminProvider.setBuildingDimensions(dimensions).subscribe();
+
+      let inst = document.getElementById("instructions");
+      inst.hidden = false;
+
+      this.adminProvider.setBuildingDimensions(dimensions).subscribe(resp => {console.log(resp);});
 
   }
 
@@ -118,12 +88,12 @@ export class MeshPage {
 
           let position = {
               row: row,
-              column: column
+              column: column,
           }
 
           this.adminProvider.setPixelPosition(position).subscribe();
+
       }
-          console.log(event.target);
   }
 
   undoPixel() {
@@ -134,76 +104,16 @@ export class MeshPage {
       }
   }
 
-  private initHoursFormat(hoursFromBack: String): String {
-    return hoursFromBack.substring(0, 2) + ':00';
-  }
-
-  private initHourList(sunValue: String, listToInit: String[]) {
-    let j: number;
-    for (j = 0; j <= 5; j++) {
-      listToInit.push(sunValue + j.toString());
-    }
-    let i: number
-    for (i = 0; i <= 23; i++) {
-      let hourToPush: String = i + ":00";
-      if (i < 10) {
-        hourToPush = "0" + hourToPush;
-      }
-      listToInit.push(hourToPush);
-    }
+  confirmPixels() {
+      this.adminProvider.confirmPixelsPosition().subscribe();
+      this.navCtrl.pop();
   }
 
   /**
    * Navigation
    */
-  goToFappList() {
+  goToSettings() {
     this.navCtrl.pop();
   }
 
-  goToMeshPage() {
-    //this.navCtrl.push(MeshPage);
-  }
-  /**
-   * Admin Actions
-   */
-  clearUserQueue() {
-    this.adminProvider.clearUserQueue().subscribe();
-  }
-
-  updateFrontageState() {
-    this.adminProvider.updateFrontageState(this.selectedFrontageState).subscribe();
-  }
-
-  updateLifetime() {
-    this.adminProvider.updateLifetime(this.lifetime).subscribe();
-  }
-
-  setOpeningHour() {
-    //Check if the admin choosed an offset or an hour
-    if (this.selectedOpeningHour
-      && this.selectedOpeningHour.length > 7
-      && this.selectedOpeningHour.substring(0, 7) == 'sunset+') {
-      let offset: String = this.selectedOpeningHour.substring(7);
-      this.adminProvider.setFrontageOpeningOffset(offset).subscribe();
-    } else {
-      this.adminProvider.setFrontageOpeningHour(this.selectedOpeningHour).subscribe();
-    }
-  }
-
-  setClosingHour() {
-    //Check if the admin choosed an offset or an hour
-    if (this.selectedClosingHour
-      && this.selectedClosingHour.length > 8
-      && this.selectedClosingHour.substring(0, 8) == 'sunrise-') {
-      let offset: String = this.selectedClosingHour.substring(7, 9);
-      this.adminProvider.setFrontageClosingOffset(offset).subscribe();
-    } else {
-      this.adminProvider.setFrontageClosingHour(this.selectedClosingHour).subscribe();
-    }
-  }
-
-  unForceFApp() {
-    this.vibration.vibrate(50)
-    this.adminProvider.unForceFApp().subscribe();
-  }
 }
