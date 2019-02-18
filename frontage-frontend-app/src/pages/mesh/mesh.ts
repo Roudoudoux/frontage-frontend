@@ -80,8 +80,8 @@ export class MeshPage {
 
       // need to change it, but for now it states that this position was already selected
       if (event.target.style.background != '#299a29') {
-          var row = Math.floor(element/this.buildingHeight);
-          var column = Math.floor(element%this.buildingWidth);
+          let row = Math.floor(element/this.buildingHeight);
+          let column = Math.floor(element%this.buildingWidth);
 
           this.markedPixels.push(event);
           event.target.style.background = '#299a29';
@@ -98,7 +98,7 @@ export class MeshPage {
 
   undoPixel() {
       if (this.markedPixels.length > 0) {
-          var button = this.markedPixels.pop();
+          let button = this.markedPixels.pop();
           button.target.style.background = '#ffffff';
           this.adminProvider.resetPixelPosition().subscribe();
       }
