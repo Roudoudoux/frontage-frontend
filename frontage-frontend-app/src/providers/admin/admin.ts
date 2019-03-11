@@ -131,6 +131,12 @@ export class AdminProvider {
       .catch(error => Observable.of(error));
   }
 
+  public getBuildingDimensions(): Observable<any> {
+    return this.http
+      .get(this.baseUrl + "/b/admin/settings/mesh/dimensions")
+      .catch(error => Observable.of(error));
+  }
+
   public setPixelPosition(body): Observable<any> {
 
     return this.http

@@ -69,7 +69,33 @@ export class MeshPage {
   /**
    * Init data
    */
-  ngOnInit() {  }
+  ngOnInit() {
+      this.adminProvider.getBuildingDimensions().subscribe(resp => {
+          this.buildingHeight = resp['height'];
+          this.buildingWidth = resp['width'];
+          this.grid = new Array(this.buildingHeight);
+
+          this.createGrid();
+        });
+
+  }
+
+  createGrid() {
+      this.grid = new Array(this.buildingWidth);
+
+      for (let i = 0; i < this.buildingHeight; i++) {
+          this.grid[i] = new Array(this.buildingWidth);
+          for (let j = 0; j < this.buildingWidth; j++) {
+              this.grid[i][j] = i*this.buildingWidth+j;
+          }
+      }
+
+      let inst = document.getElementById("instructions");
+      let buttons = document.getElementById("pixel_buttons");
+      inst.hidden = false;
+      buttons.hidden = false;
+
+  }
 
   validateDimensions() {
 
@@ -78,22 +104,12 @@ export class MeshPage {
           if (this.grid != null) // if there was already a grid, we create another one
             this.grid = null
 
-          this.grid = new Array(this.buildingHeight);
-
-          for (let i = 0; i < this.buildingHeight; i++) {
-              this.grid[i] = new Array(this.buildingWidth);
-              for (let j = 0; j < this.buildingWidth; j++) {
-                  this.grid[i][j] = i*this.buildingWidth+j;
-              }
-          }
+          this.createGrid();
 
           let dimensions = {
               width: this.buildingWidth,
               height: this.buildingHeight
           }
-
-          let inst = document.getElementById("instructions");
-          inst.hidden = false;
 
           this.adminProvider.setBuildingDimensions(dimensions).subscribe(resp => {console.log(resp);});
 
