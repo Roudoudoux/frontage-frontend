@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { DataFAppsProvider } from './../../providers/data-f-apps/data-f-apps';
+import { WebsocketMessageHandlerProvider } from './../../providers/websocket-message-handler/websocket-message-handler';
+
 
 
 @Component({
@@ -21,7 +23,7 @@ export class MeshPage {
   buildingWidth: number;
   buildingHeight: number;
   grid: Array<Array<number>>; //array of arrays
-  markedPixels: Array<HTMLButtonElement> = new Array();
+  markedPixel: HTMLButtonElement;
   fAppOptions: any;
   isRefused: Boolean = false;
 
@@ -31,15 +33,19 @@ export class MeshPage {
     public adminProvider: AdminProvider,
     public authentication: AuthenticationProvider,
     public translateService: TranslateService,
-    public dataFAppsProvider: DataFAppsProvider) {
+    public dataFAppsProvider: DataFAppsProvider,
+    public websocketMessageHandler: WebsocketMessageHandlerProvider) {
 
     //Init the ama options to send to the back
     this.fAppOptions = {
       name: "Ama"
     };
 
+    websocketMessageHandler.initSocket(navCtrl);
+
     this.buildingWidth = 0;
     this.buildingHeight = 0;
+    this.markedPixel = null;
 
     this.translateService.get("ON_MESSAGE").subscribe(res => {
       let on = {
@@ -103,36 +109,34 @@ export class MeshPage {
 
   matrixTouched(element: number, event: Event) {
       let targetElement : HTMLButtonElement = event.target as HTMLButtonElement;
-      // need to change it, but for now it states that this position was already selected
-      if (targetElement.style.background != '#299a29') {
+
+      console.log(targetElement.style.backgroundColor);
+      if (this.markedPixel == null && targetElement.style.backgroundColor != 'rgb(128, 128, 128)') { // i couldnt find where the default color is defined
           let row : number = Math.floor(element/this.buildingHeight);
           let column : number = Math.floor(element%this.buildingWidth);
 
-          this.markedPixels.push(targetElement);
+          this.markedPixel = targetElement;
           targetElement.style.background = '#299a29';
 
-          let position = {
-              row: row,
-              column: column,
-          }
-
-          this.adminProvider.setPixelPosition(position).subscribe();
-
-      }
-  }
-
-  undoPixel() {
-      if (this.markedPixels.length > 0) {
-          let targetElement : HTMLButtonElement = this.markedPixels.pop();
-          targetElement.style.background = '#ffffff';
-          this.adminProvider.resetPixelPosition().subscribe();
+          //this.websocketMessageHandler.send(JSON.stringify({x:column, y:row}));
       }
   }
 
   confirmPixels() {
-      this.adminProvider.confirmPixelsPosition().subscribe();
-      this.navCtrl.pop();
+     if (this.markedPixel) {
+         //this.websocketMessageHandler.send(JSON.stringify({action:1}));
+         this.markedPixel.style.background = '#808080';
+         this.markedPixel = null;
+     }
+    }
+  undoPixel() {
+      if (this.markedPixel) {
+          //this.websocketMessageHandler.send(JSON.stringify({action:0}));
+          this.markedPixel.style.background = '#ffffff';
+          this.markedPixel = null;
+      }
   }
+
 
   /**
    * Navigation

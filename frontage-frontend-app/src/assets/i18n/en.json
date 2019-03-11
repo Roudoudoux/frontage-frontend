@@ -109,8 +109,8 @@
     "MESH_PAGE_HEIGHT_LABEL": "Amount of vertical pixels",
     "MESH_PAGE_WIDTH_LABEL": "Amount of horizontal pixels",
     "MESH_VALIDATION_BUTTON": "Submit dimensions",
-    "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Undo last placement",
-    "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Submit pixels' placement",
+    "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Confirm pixel",
+    "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Undo pixel",
     "BUILDING_DIMENSIONS_REJECTED": "Please enter valid dimensions",
 
 
