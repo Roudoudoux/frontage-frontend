@@ -113,6 +113,8 @@
     "MESH_PAGE_INSTRUCTION": "Cliquer sur la matrice la position de la led qui est allumée",
     "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Défaire la dernière affectation",
     "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Confirmer placement des pixels",
+    "BUILDING_DIMENSIONS_REJECTED": "Veuillez inserer les bonnes dimensions",
+
 
     "GET_OUT":"Désolé, vous n'avez plus l'autorisation de jouer.",
     "GAME_OVER":"Vous avez perdu :)",

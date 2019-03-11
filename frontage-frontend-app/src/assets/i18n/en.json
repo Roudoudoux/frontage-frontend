@@ -111,6 +111,7 @@
     "MESH_VALIDATION_BUTTON": "Submit dimensions",
     "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Undo last placement",
     "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Submit pixels' placement",
+    "BUILDING_DIMENSIONS_REJECTED": "Please enter valid dimensions",
 
 
     "GET_OUT":"Sorry, you can no longer play.",

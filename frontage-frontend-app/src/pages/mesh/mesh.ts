@@ -6,6 +6,9 @@ import { AdminProvider } from './../../providers/admin/admin';
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { DataFAppsProvider } from './../../providers/data-f-apps/data-f-apps';
+
+
 @Component({
   selector: 'page-mesh',
   templateUrl: 'mesh.html',
@@ -14,19 +17,29 @@ import { NavController, NavParams } from 'ionic-angular';
 
 export class MeshPage {
 
-
   lifetime: number;
   buildingWidth: number;
   buildingHeight: number;
   grid: Array<Array<number>>; //array of arrays
   markedPixels: Array<HTMLButtonElement> = new Array();
+  fAppOptions: any;
+  isRefused: Boolean = false;
+
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public adminProvider: AdminProvider,
     public authentication: AuthenticationProvider,
     public translateService: TranslateService,
-    public vibration: Vibration) {
+    public dataFAppsProvider: DataFAppsProvider) {
+
+    //Init the ama options to send to the back
+    this.fAppOptions = {
+      name: "Ama"
+    };
+
+    this.buildingWidth = 0;
+    this.buildingHeight = 0;
 
     this.translateService.get("ON_MESSAGE").subscribe(res => {
       let on = {
@@ -53,26 +66,38 @@ export class MeshPage {
   ngOnInit() {  }
 
   validateDimensions() {
-      console.log(this.buildingHeight + ", " + this.buildingWidth);
-      if (this.grid != null)
-        this.grid = null
-      this.grid = new Array(this.buildingHeight);
-      for (let i = 0; i < this.buildingHeight; i++) {
-          this.grid[i] = new Array(this.buildingWidth);
-          for (let j = 0; j < this.buildingWidth; j++) {
-              this.grid[i][j] = i*this.buildingWidth+j;
+
+
+      if (this.buildingHeight > 0 && this.buildingWidth > 0) {
+          if (this.grid != null) // if there was already a grid, we create another one
+            this.grid = null
+
+          this.grid = new Array(this.buildingHeight);
+
+          for (let i = 0; i < this.buildingHeight; i++) {
+              this.grid[i] = new Array(this.buildingWidth);
+              for (let j = 0; j < this.buildingWidth; j++) {
+                  this.grid[i][j] = i*this.buildingWidth+j;
+              }
           }
+
+          let dimensions = {
+              width: this.buildingWidth,
+              height: this.buildingHeight
+          }
+
+          let inst = document.getElementById("instructions");
+          inst.hidden = false;
+
+          this.adminProvider.setBuildingDimensions(dimensions).subscribe(resp => {console.log(resp);});
+
+          // this.dataFAppsProvider.launchFApp(this.fAppOptions)
+          // .subscribe(response => console.log(response), err => console.log(err));
       }
 
-      let dimensions = {
-          width: this.buildingWidth,
-          height: this.buildingHeight
+      else {
+          this.isRefused = true;
       }
-
-      let inst = document.getElementById("instructions");
-      inst.hidden = false;
-
-      this.adminProvider.setBuildingDimensions(dimensions).subscribe(resp => {console.log(resp);});
 
   }
 
@@ -117,3 +142,12 @@ export class MeshPage {
   }
 
 }
+
+// le code suivant est le code du bouton "lancer application" sur options-page-button.ts
+//
+// startFapp() {
+//   this.vibration.vibrate(50);
+//   this.websocketMessageHandlerProvider.resetFlags();
+//   this.dataFAppsProvider.launchFApp(this.fAppOptions)
+//     .subscribe(response => this.goToNextPage(response), err => console.log(err));
+// }
