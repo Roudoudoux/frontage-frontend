@@ -45,8 +45,8 @@ export class MeshPage {
 
     websocketMessageHandler.initSocket(navCtrl);
 
-    this.buildingWidth = 0;
-    this.buildingHeight = 0;
+    this.buildingWidth = 1;
+    this.buildingHeight = 1;
     this.markedPixel = null;
 
     this.translateService.get("ON_MESSAGE").subscribe(res => {
@@ -117,6 +117,8 @@ export class MeshPage {
           this.enableValidation = false;
           // this.dataFAppsProvider.launchFApp(this.fAppOptions)
           // .subscribe(response => console.log(response), err => console.log(err));
+
+          this.isRefused = false;
       }
 
       else {
@@ -149,7 +151,7 @@ export class MeshPage {
     }
   undoPixel() {
       if (this.markedPixel) {
-          //this.websocketMessageHandler.send(JSON.stringify({action:0}));
+          //this.websocketMessageHandler.send(JSON.stringify({action:-1}));
           this.markedPixel.style.background = '#ffffff';
           this.markedPixel = null;
       }
