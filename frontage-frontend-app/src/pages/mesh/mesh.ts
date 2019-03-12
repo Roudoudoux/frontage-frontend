@@ -20,6 +20,8 @@ import { WebsocketMessageHandlerProvider } from './../../providers/websocket-mes
 export class MeshPage {
 
   lifetime: number;
+  totalAmount: number;
+  addressedAmount: number;
   buildingWidth: number;
   buildingHeight: number;
   grid: Array<Array<number>>; //array of arrays
@@ -27,6 +29,7 @@ export class MeshPage {
   fAppOptions: any;
   isRefused: Boolean = false;
   enableValidation:boolean=true;
+  finished:boolean=false;
 
 
 
@@ -43,10 +46,12 @@ export class MeshPage {
       name: "Ama"
     };
 
-    websocketMessageHandler.initSocket(navCtrl);
+    //websocketMessageHandler.initSocket(navCtrl);
 
-    this.buildingWidth = 1;
-    this.buildingHeight = 1;
+    this.totalAmount = 0;
+    this.addressedAmount = 0;
+    this.buildingWidth = 0;
+    this.buildingHeight = 0;
     this.markedPixel = null;
 
     this.translateService.get("ON_MESSAGE").subscribe(res => {
@@ -73,13 +78,13 @@ export class MeshPage {
    */
   ngOnInit() {
       this.adminProvider.getBuildingDimensions().subscribe(resp => {
-          this.buildingHeight = resp['height'];
-          this.buildingWidth = resp['width'];
-          this.grid = new Array(this.buildingHeight);
-
-          this.createGrid();
+          if (resp['height'] > 0)
+            this.buildingHeight = resp['height'];
+          if (resp['width'] > 0)
+            this.buildingWidth = resp['width'];
+          if (resp['amount'] > 0)
+            this.totalAmount = resp['amount'];
         });
-
   }
 
   createGrid() {
@@ -102,7 +107,8 @@ export class MeshPage {
   validateDimensions() {
 
 
-      if (this.buildingHeight > 0 && this.buildingWidth > 0) {
+      if (this.buildingHeight > 0 && this.buildingWidth > 0 && this.totalAmount > 0
+      && this.totalAmount <= this.buildingHeight * this.buildingWidth) {
           if (this.grid != null) // if there was already a grid, we create another one
             this.grid = null
 
@@ -110,7 +116,8 @@ export class MeshPage {
 
           let dimensions = {
               width: this.buildingWidth,
-              height: this.buildingHeight
+              height: this.buildingHeight,
+              amount: this.totalAmount
           }
 
           this.adminProvider.setBuildingDimensions(dimensions).subscribe(resp => {console.log(resp);});
@@ -131,7 +138,7 @@ export class MeshPage {
       let targetElement : HTMLButtonElement = event.target as HTMLButtonElement;
 
       console.log(targetElement.style.backgroundColor);
-      if (this.markedPixel == null && targetElement.style.backgroundColor != 'rgb(128, 128, 128)') { // i couldnt find where the default color is defined
+      if (!this.finished && this.markedPixel == null && targetElement.style.backgroundColor != 'rgb(128, 128, 128)') { // i couldnt find where the default color is defined
           let row : number = Math.floor(element/this.buildingHeight);
           let column : number = Math.floor(element%this.buildingWidth);
 
@@ -147,8 +154,12 @@ export class MeshPage {
          //this.websocketMessageHandler.send(JSON.stringify({action:1}));
          this.markedPixel.style.background = '#808080';
          this.markedPixel = null;
+         this.addressedAmount++;
+
+         if (this.addressedAmount == this.totalAmount)
+            this.finished = true;
      }
-    }
+  }
   undoPixel() {
       if (this.markedPixel) {
           //this.websocketMessageHandler.send(JSON.stringify({action:-1}));

@@ -5,6 +5,11 @@
 <ion-content padding class="bg">
     <ion-card-content>
     <ion-item class="item-settings">
+            <ion-label>{{'MESH_PAGE_AMOUNT_LABEL' | translate}}</ion-label>
+            <ion-input [(ngModel)]="totalAmount" type="number" min="1" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item class="item-settings">
         <ion-label>{{'MESH_PAGE_HEIGHT_LABEL' | translate}}</ion-label>
         <ion-input [(ngModel)]="buildingHeight" type="number" min="1" clearInput></ion-input>
     </ion-item>
@@ -27,6 +32,10 @@
 
     <ion-card>
       <ion-card-header text-wrap color="secondary" id="instructions" hidden="true">{{'MESH_PAGE_INSTRUCTION' | translate}} </ion-card-header>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header text-wrap id="text" color="secondary">{{addressedAmount}}/{{totalAmount}} </ion-card-header>
     </ion-card>
 
     <ion-grid>

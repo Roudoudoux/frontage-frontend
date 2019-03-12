@@ -106,6 +106,7 @@
     "SETTINGS_PAGE_DEFAULT_LIFETIME": "Lifetime of default apps",
 
     "MESH_CONFIGURATION_BUTTON": "Configure mesh network",
+    "MESH_PAGE_AMOUNT_LABEL": "Amount of ESP cards",
     "MESH_PAGE_HEIGHT_LABEL": "Amount of vertical pixels",
     "MESH_PAGE_WIDTH_LABEL": "Amount of horizontal pixels",
     "MESH_VALIDATION_BUTTON": "Start addressing procedure",

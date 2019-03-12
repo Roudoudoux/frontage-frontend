@@ -106,6 +106,7 @@
     "SETTINGS_PAGE_DEFAULT_LIFETIME": "Durée des applications",
 
     "MESH_CONFIGURATION_BUTTON": "Configurer réseau mesh",
+    "MESH_PAGE_AMOUNT_LABEL": "Nombre de cartes ESP",
     "MESH_PAGE_HEIGHT_LABEL": "Nombre de pixels verticaux",
     "MESH_PAGE_WIDTH_LABEL": "Nombre de pixels horizontaux",
     "MESH_PAGE_INSTRUCTION": "Appuyez sur les fenêtre qui correspondent à laquelle qui clignote",
