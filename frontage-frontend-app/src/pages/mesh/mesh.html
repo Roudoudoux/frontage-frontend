@@ -16,7 +16,7 @@
 
 
     <ion-item>
-      <button ion-button icon-end full color="secondary" class="tr" (click)="validateDimensions()">
+      <button ion-button [disabled]="!enableValidation" icon-end full color="secondary" class="tr" (click)="validateDimensions()">
         {{"MESH_VALIDATION_BUTTON" | translate}}
         <ion-icon color="secondary" ios="ios-validate-dimension" md="md-validate-dimension"></ion-icon>
       </button>

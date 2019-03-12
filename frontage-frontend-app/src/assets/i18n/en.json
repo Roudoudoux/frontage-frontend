@@ -108,7 +108,7 @@
     "MESH_CONFIGURATION_BUTTON": "Configure mesh network",
     "MESH_PAGE_HEIGHT_LABEL": "Amount of vertical pixels",
     "MESH_PAGE_WIDTH_LABEL": "Amount of horizontal pixels",
-    "MESH_VALIDATION_BUTTON": "Submit dimensions",
+    "MESH_VALIDATION_BUTTON": "Start addressing procedure",
     "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Confirm pixel",
     "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Undo pixel",
     "BUILDING_DIMENSIONS_REJECTED": "Please enter valid dimensions",
