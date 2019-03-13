@@ -122,6 +122,8 @@ export class MeshPage {
 
           this.adminProvider.setBuildingDimensions(dimensions).subscribe(resp => {console.log(resp);});
           this.enableValidation = false;
+          this.dataFAppsProvider.launchFApp(this.fAppOptions)
+            .subscribe(response => console.log(response), err => console.log(err));
           // this.dataFAppsProvider.launchFApp(this.fAppOptions)
           // .subscribe(response => console.log(response), err => console.log(err));
 
