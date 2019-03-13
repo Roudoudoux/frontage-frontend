@@ -123,8 +123,7 @@ export class MeshPage {
           this.adminProvider.setBuildingDimensions(dimensions).subscribe(resp => {console.log(resp);});
           this.enableValidation = false;
           this.dataFAppsProvider.launchFApp(this.fAppOptions)
-            .subscribe(response => console.log(response), err => console.log(err));
-
+            .subscribe(response => console.log("alo" + response), err => console.log(err));
           this.isRefused = false;
       }
 
@@ -145,13 +144,13 @@ export class MeshPage {
           this.markedPixel = targetElement;
           targetElement.style.background = '#299a29';
 
-          //this.websocketMessageHandler.send(JSON.stringify({x:column, y:row}));
+          this.websocketMessageHandler.send(JSON.stringify({x:column, y:row}));
       }
   }
 
   confirmPixels() {
      if (this.markedPixel) {
-         //this.websocketMessageHandler.send(JSON.stringify({action:1}));
+         this.websocketMessageHandler.send(JSON.stringify({action:1}));
          this.markedPixel.style.background = '#808080';
          this.markedPixel = null;
          this.addressedAmount++;
@@ -162,7 +161,7 @@ export class MeshPage {
   }
   undoPixel() {
       if (this.markedPixel) {
-          //this.websocketMessageHandler.send(JSON.stringify({action:-1}));
+          this.websocketMessageHandler.send(JSON.stringify({action:-1}));
           this.markedPixel.style.background = '#ffffff';
           this.markedPixel = null;
       }

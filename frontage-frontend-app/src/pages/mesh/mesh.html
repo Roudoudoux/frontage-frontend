@@ -6,17 +6,17 @@
     <ion-card-content>
     <ion-item class="item-settings">
             <ion-label>{{'MESH_PAGE_AMOUNT_LABEL' | translate}}</ion-label>
-            <ion-input [(ngModel)]="totalAmount" type="number" min="1" clearInput></ion-input>
+            <ion-input [(ngModel)]="totalAmount" [disabled]="!enableValidation" type="number" min="1" clearInput></ion-input>
     </ion-item>
 
     <ion-item class="item-settings">
         <ion-label>{{'MESH_PAGE_HEIGHT_LABEL' | translate}}</ion-label>
-        <ion-input [(ngModel)]="buildingHeight" type="number" min="1" clearInput></ion-input>
+        <ion-input [(ngModel)]="buildingHeight" [disabled]="!enableValidation" type="number" min="1" clearInput></ion-input>
     </ion-item>
 
     <ion-item item-text-wrap class="item-settings">
         <ion-label text-wrap>{{'MESH_PAGE_WIDTH_LABEL' | translate}}</ion-label>
-        <ion-input [(ngModel)]="buildingWidth" type="number" min="1" clearInput></ion-input>
+        <ion-input [(ngModel)]="buildingWidth" [disabled]="!enableValidation" type="number" min="1" clearInput></ion-input>
     </ion-item>
 
 
@@ -31,17 +31,17 @@
     </ion-card-content>
 
     <ion-card>
-      <ion-card-header text-wrap color="secondary" id="instructions" hidden="true">{{'MESH_PAGE_INSTRUCTION' | translate}} </ion-card-header>
+      <ion-card-header text-wrap color="light" id="instructions" hidden="true">{{'MESH_PAGE_INSTRUCTION' | translate}} </ion-card-header>
     </ion-card>
 
     <ion-card>
-      <ion-card-header text-wrap id="text" color="secondary">{{addressedAmount}}/{{totalAmount}} </ion-card-header>
+      <ion-card-header text-wrap id="text" color="light">{{addressedAmount}}/{{totalAmount}} </ion-card-header>
     </ion-card>
 
     <ion-grid>
         <ion-row no-padding no-margin *ngFor="let row of grid">
             <ion-col  padding-0 *ngFor="let element of row">
-                <button no-margin ion-button color="light" (click)="matrixTouched(element, $event)"></button>
+                <button [disabled]="enableValidation" no-margin ion-button color="light" (click)="matrixTouched(element, $event)"></button>
             </ion-col>
         </ion-row>
     </ion-grid>
