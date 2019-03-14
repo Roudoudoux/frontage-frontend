@@ -112,6 +112,7 @@
     "MESH_PAGE_INSTRUCTION": "Appuyez sur les fenêtre qui correspondent à laquelle qui clignote",
     "MESH_VALIDATION_BUTTON": "Commencer l'adressage manuel",
     "MESH_PAGE_INSTRUCTION": "Cliquer sur la matrice la position de la led qui est allumée",
+    "MESH_PAGE_BACK_BUTTON": "Retour à la page de configuration mesh",
     "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Confirmer pixel",
     "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Annuler pixel",
     "BUILDING_DIMENSIONS_REJECTED": "Veuillez inserer les bonnes dimensions",

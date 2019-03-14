@@ -30,32 +30,7 @@
     </ion-label>
     </ion-card-content>
 
-    <ion-card>
-      <ion-card-header text-wrap color="light" id="instructions" hidden="true">{{'MESH_PAGE_INSTRUCTION' | translate}} </ion-card-header>
-    </ion-card>
-
-    <ion-card>
-      <ion-card-header text-wrap id="text" color="light">{{addressedAmount}}/{{totalAmount}} </ion-card-header>
-    </ion-card>
-
-    <ion-grid>
-        <ion-row no-padding no-margin *ngFor="let row of grid">
-            <ion-col  padding-0 *ngFor="let element of row">
-                <button [disabled]="enableValidation" no-margin ion-button color="light" (click)="matrixTouched(element, $event)"></button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-
-    <ion-item hidden="true" id="pixel_buttons">
-        <button inline ion-button icon-end full color="secondary" class="tr" (click)="confirmPixels()">
-          {{"CONFIRM_PIXEL_ATTRIBUTION_BUTTON" | translate}}
-          <ion-icon color="secondary" ios="ios-confirm-attribution" md="md-confirm-attribution"></ion-icon>
-        </button>
-      <button ion-button icon-end full color="secondary" class="tr" (click)="undoPixel()">
-        {{"RETURN_PIXEL_ATTRIBUTION_BUTTON" | translate}}
-        <ion-icon color="secondary" ios="ios-return-attribution" md="md-return-attribution"></ion-icon>
-      </button>
-    </ion-item>
+    
 
 
 
