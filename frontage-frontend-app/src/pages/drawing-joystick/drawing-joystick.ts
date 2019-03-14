@@ -22,8 +22,8 @@ export class DrawingJoystickPage {
 
   baseCss:string = "opacity:1;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;";
 
-  frontageHeight:Number = 4;
-  frontageWidth:Number = 19;
+  frontageHeight:Number;
+  frontageWidth:Number;
 
   currentColorHexa:any;
   pixelMatrix: Array<Array<SafeStyle>>;
@@ -38,6 +38,7 @@ export class DrawingJoystickPage {
     public screenOrientation: ScreenOrientation, public platform: Platform, public vibration: Vibration,
     public adminProvider: AdminProvider, public alertCtrl: AlertController, public translateService: TranslateService,
     public localStorageProvider: LocalStorageProvider) {
+      
 
     this.isAdmin = this.localStorageProvider.isAdmin();
 
@@ -76,6 +77,15 @@ export class DrawingJoystickPage {
 
     this.translateService.get("DRAWING_SENT_ALERT").subscribe(translatedMesssage => {
       this.optionsSentMessage = translatedMesssage;
+    });
+  }
+  /**
+   * Init data
+   */
+  ngOnInit() {
+    this.adminProvider.getBuildingDimensions().subscribe(resp => {
+      this.frontageHeight = resp['height']
+      this.frontageWidth = resp['width']
     });
   }
 

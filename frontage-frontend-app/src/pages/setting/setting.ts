@@ -9,6 +9,8 @@ import { DataFAppsProvider } from '../../providers/data-f-apps/data-f-apps';
 import { WebsocketMessageHandlerProvider } from './../../providers/websocket-message-handler/websocket-message-handler';
 import { MeshPage } from '../mesh/mesh';
 
+
+
 @Component({
   selector: 'page-setting',
   templateUrl: 'setting.html',

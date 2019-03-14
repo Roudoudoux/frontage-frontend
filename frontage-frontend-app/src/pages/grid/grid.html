@@ -3,8 +3,9 @@
 </ion-header>
 
 <ion-content padding class="bg">
+
   <ion-card>
-    <ion-card-header text-wrap color="light" id="instructions" hidden="true">{{'MESH_PAGE_INSTRUCTION' | translate}} </ion-card-header>
+    <ion-card-header text-wrap color="light" id="instructions" hidden="false">{{'MESH_PAGE_INSTRUCTION' | translate}} </ion-card-header>
   </ion-card>
 
   <ion-card>
@@ -19,7 +20,7 @@
       </ion-row>
   </ion-grid>
 
-  <ion-item hidden="true" id="pixel_buttons">
+  <ion-item hidden="false" id="pixel_buttons">
       <button inline ion-button icon-end full color="secondary" class="tr" (click)="confirmPixels()">
         {{"CONFIRM_PIXEL_ATTRIBUTION_BUTTON" | translate}}
         <ion-icon color="secondary" ios="ios-confirm-attribution" md="md-confirm-attribution"></ion-icon>
