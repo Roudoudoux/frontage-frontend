@@ -4,7 +4,7 @@ import { AuthenticationProvider } from './../../providers/authentication/authent
 import { AdminHoursSettings } from './../../models/admin-hours-settings';
 import { AdminProvider } from './../../providers/admin/admin';
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { DataFAppsProvider } from './../../providers/data-f-apps/data-f-apps';
 import { WebsocketMessageHandlerProvider } from './../../providers/websocket-message-handler/websocket-message-handler';
@@ -39,7 +39,8 @@ export class MeshPage {
     public authentication: AuthenticationProvider,
     public translateService: TranslateService,
     public dataFAppsProvider: DataFAppsProvider,
-    public websocketMessageHandler: WebsocketMessageHandlerProvider) {
+    public websocketMessageHandler: WebsocketMessageHandlerProvider,
+    public alertController: AlertController) {
 
     //Init the ama options to send to the back
     this.fAppOptions = {
@@ -91,7 +92,7 @@ export class MeshPage {
   }
 
   createGrid() {
-      this.grid = new Array(this.buildingWidth);
+      this.grid = new Array(this.buildingHeight);
 
       for (let i = 0; i < this.buildingHeight; i++) {
           this.grid[i] = new Array(this.buildingWidth);
@@ -126,6 +127,9 @@ export class MeshPage {
           this.adminProvider.setBuildingDimensions(dimensions).subscribe(resp => {console.log(resp);});
           this.enableValidation = false;
           this.isRefused = false;
+
+          console.log("height:" + this.buildingHeight + " width:" + this.buildingWidth)
+
       }
 
       else {
@@ -137,9 +141,8 @@ export class MeshPage {
   matrixTouched(element: number, event: Event) {
       let targetElement : HTMLButtonElement = event.target as HTMLButtonElement;
 
-      console.log(targetElement.style.backgroundColor);
       if (!this.finished && this.markedPixel == null && targetElement.style.backgroundColor != 'rgb(128, 128, 128)') { // i couldnt find where the default color is defined
-          let row : number = Math.floor(element/this.buildingHeight);
+          let row : number = Math.floor(element/this.buildingWidth);
           let column : number = Math.floor(element%this.buildingWidth);
 
           this.markedPixel = targetElement;
@@ -157,10 +160,28 @@ export class MeshPage {
          this.markedPixel = null;
          this.addressedAmount++;
 
-         if (this.addressedAmount == this.totalAmount)
+         if (this.addressedAmount == this.totalAmount) {
             this.finished = true;
+
+            const alert = this.alertController.create({
+                header: 'Adressage terminé',
+                message: 'La configuration a été stocké',
+                buttons: [{
+                    text: 'Ok',
+                    handler: () => {
+                        this.dataFAppsProvider.stopApp();
+                        this.websocketMessageHandler.closeSocket();
+                        this.websocketMessageHandler.stopKeepAliveSender();
+                        this.navCtrl.pop();
+                    }
+                }
+            ]
+            });
+            alert.present();
+        }
      }
   }
+
   undoPixel() {
       if (this.markedPixel) {
           this.websocketMessageHandler.send(JSON.stringify({action:-1}));
@@ -176,5 +197,12 @@ export class MeshPage {
   goToSettings() {
     this.navCtrl.pop();
   }
+
+  ionViewDidLeave(){
+    this.dataFAppsProvider.stopApp();
+    this.websocketMessageHandler.closeSocket();
+    this.websocketMessageHandler.stopKeepAliveSender();
+  }
+
 
 }

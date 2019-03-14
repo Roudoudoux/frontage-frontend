@@ -107,8 +107,8 @@
 
     "MESH_CONFIGURATION_BUTTON": "Configure mesh network",
     "MESH_PAGE_AMOUNT_LABEL": "Amount of ESP cards",
-    "MESH_PAGE_HEIGHT_LABEL": "Amount of vertical pixels",
-    "MESH_PAGE_WIDTH_LABEL": "Amount of horizontal pixels",
+    "MESH_PAGE_HEIGHT_LABEL": "Lines",
+    "MESH_PAGE_WIDTH_LABEL": "Columns",
     "MESH_VALIDATION_BUTTON": "Start addressing procedure",
     "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Confirm pixel",
     "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Undo pixel",
