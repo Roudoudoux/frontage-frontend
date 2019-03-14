@@ -5,6 +5,8 @@ import { AdminHoursSettings } from './../../models/admin-hours-settings';
 import { AdminProvider } from './../../providers/admin/admin';
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { DataFAppsProvider } from '../../providers/data-f-apps/data-f-apps';
+import { WebsocketMessageHandlerProvider } from './../../providers/websocket-message-handler/websocket-message-handler';
 import { MeshPage } from '../mesh/mesh';
 
 @Component({
@@ -19,14 +21,17 @@ export class SettingPage implements OnInit {
   frontageStateList: any[] = [];
   selectedOpeningHour: String;
   selectedClosingHour: String;
+  fAppOptions: any;
 
   lifetime: number;
 
   constructor(public navCtrl: NavController,
+    public websocketMessageHandlerProvider: WebsocketMessageHandlerProvider,
     public navParams: NavParams,
     public adminProvider: AdminProvider,
     public authentication: AuthenticationProvider,
     public translateService: TranslateService,
+    public dataFAppsProvider: DataFAppsProvider,
     public vibration: Vibration) {
 
     this.initHourList("sunset+", this.openingHourList);
@@ -52,6 +57,9 @@ export class SettingPage implements OnInit {
       };
       this.frontageStateList.push(scheduled);
     });
+    this.fAppOptions = {
+      name: "Ama"
+    };
   }
   /**
    * Init data
@@ -108,7 +116,10 @@ export class SettingPage implements OnInit {
   }
 
   goToMeshPage() {
-    this.navCtrl.push(MeshPage);
+    //this.websocketMessageHandlerProvider.resetFlags();
+    this.dataFAppsProvider.launchFApp(this.fAppOptions)
+      .subscribe(response => this.navCtrl.push(MeshPage), err => console.log(err));
+    //this.navCtrl.push(MeshPage);
   }
 
   /**
@@ -150,7 +161,7 @@ export class SettingPage implements OnInit {
     }
   }
 
-  unForceFApp() { 
+  unForceFApp() {
     this.vibration.vibrate(50)
     this.adminProvider.unForceFApp().subscribe();
   }

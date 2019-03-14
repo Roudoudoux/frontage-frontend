@@ -28,7 +28,7 @@ export class MeshPage {
   markedPixel: HTMLButtonElement;
   fAppOptions: any;
   isRefused: Boolean = false;
-  enableValidation:boolean=true;
+  enableValidation:boolean=false;
   finished:boolean=false;
 
 
@@ -45,8 +45,6 @@ export class MeshPage {
     this.fAppOptions = {
       name: "Ama"
     };
-
-    //websocketMessageHandler.initSocket(navCtrl);
 
     this.totalAmount = 0;
     this.addressedAmount = 0;
@@ -72,6 +70,11 @@ export class MeshPage {
         label: res
       };
     });
+    setTimeout(()=>
+      {websocketMessageHandler.initSocket(navCtrl);
+      this.enableValidation = true;},
+        5000
+    );
   }
   /**
    * Init data
@@ -122,8 +125,6 @@ export class MeshPage {
 
           this.adminProvider.setBuildingDimensions(dimensions).subscribe(resp => {console.log(resp);});
           this.enableValidation = false;
-          this.dataFAppsProvider.launchFApp(this.fAppOptions)
-            .subscribe(response => console.log("alo" + response), err => console.log(err));
           this.isRefused = false;
       }
 
@@ -144,7 +145,8 @@ export class MeshPage {
           this.markedPixel = targetElement;
           targetElement.style.background = '#299a29';
 
-          this.websocketMessageHandler.send(JSON.stringify({x:column, y:row}));
+          console.log(JSON.stringify({x:column, y:row}))
+          console.log(this.websocketMessageHandler.send(JSON.stringify({x:column, y:row})));
       }
   }
 
@@ -176,12 +178,3 @@ export class MeshPage {
   }
 
 }
-
-// le code suivant est le code du bouton "lancer application" sur options-page-button.ts
-//
-// startFapp() {
-//   this.vibration.vibrate(50);
-//   this.websocketMessageHandlerProvider.resetFlags();
-//   this.dataFAppsProvider.launchFApp(this.fAppOptions)
-//     .subscribe(response => this.goToNextPage(response), err => console.log(err));
-// }
