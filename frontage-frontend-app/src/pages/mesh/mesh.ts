@@ -82,6 +82,12 @@ export class MeshPage {
         this.createGrid();
       });
 
+      let initialised = {
+          initialised: 0
+      };
+
+      this.adminProvider.setInitialised(initialised).subscribe();
+
       setTimeout(() => {
           websocketMessageHandler.initSocket(navCtrl);
           this.enableValidation = true;}, 5000);
@@ -117,6 +123,10 @@ export class MeshPage {
 
           console.log(JSON.stringify({x:column, y:row}))
           console.log(this.websocketMessageHandler.send(JSON.stringify({x:column, y:row})));
+          this.adminProvider.getInitialised().subscribe(resp => {
+              console.log(resp);
+          });
+
       }
   }
 
@@ -130,6 +140,20 @@ export class MeshPage {
          if (this.addressedAmount == this.totalAmount) {
             this.finished = true;
 
+            let initialised = 0;
+                    this.adminProvider.getInitialised().subscribe(resp => {
+                        console.log(resp);
+                    });
+
+            // while (!initialised) {
+            // setTimeout(() =>
+            //     {
+            //         this.adminProvider.getInitialised().subscribe(resp => {
+            //             initialised = resp['initialised'];
+            //         });
+            //     }, 1000);
+            // }
+            //
             const alert = this.alertController.create({
                 header: 'Adressage terminé',
                 message: 'La configuration a été stocké',
@@ -162,6 +186,7 @@ export class MeshPage {
    * Navigation
    */
   goToSettings() {
+    // this.adminProvider.unForceFApp().subscribe();
     this.navCtrl.pop();
   }
 

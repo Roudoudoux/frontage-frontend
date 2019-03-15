@@ -3,16 +3,6 @@
 </ion-header>
 
 <ion-content padding class="bg">
-    <ion-card-content>
-
-    <ion-item>
-      <button ion-button icon-end full color="secondary" class="tr" (click)="validateDimensions()">
-        {{"MESH_VALIDATION_BUTTON" | translate}}
-        <ion-icon color="secondary" ios="ios-validate-dimension" md="md-validate-dimension"></ion-icon>
-      </button>
-    </ion-item>
-    </ion-card-content>
-
     <ion-card>
       <ion-card-header text-wrap color="light" id="instructions" >{{'MESH_PAGE_INSTRUCTION' | translate}} </ion-card-header>
     </ion-card>
@@ -24,7 +14,7 @@
     <ion-grid>
         <ion-row no-padding no-margin *ngFor="let row of grid">
             <ion-col  padding-0 *ngFor="let element of row">
-                <button no-margin ion-button color="light" (click)="matrixTouched(element, $event)"></button>
+                <button no-margin ion-button color="light" [disabled]="!enableValidation" (click)="matrixTouched(element, $event)"></button>
             </ion-col>
         </ion-row>
     </ion-grid>

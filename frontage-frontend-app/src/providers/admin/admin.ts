@@ -155,4 +155,17 @@ export class AdminProvider {
       .catch(error => Observable.of(error));
 
   }
+
+  public setInitialised(body): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/b/admin/settings/mesh/initialised", body)
+      .catch(error => Observable.of(error));
+  }
+
+  public getInitialised(): Observable<any> {
+    return this.http
+      .get(this.baseUrl + "/b/admin/settings/mesh/initialised")
+      .catch(error => Observable.of(error));
+  }
+
 }
