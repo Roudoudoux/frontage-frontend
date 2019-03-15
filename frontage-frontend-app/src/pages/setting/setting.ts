@@ -25,6 +25,13 @@ export class SettingPage implements OnInit {
 
   lifetime: number;
 
+  buildingWidth: number;
+  buildingHeight: number;
+  totalAmount: number;
+  badDimensions: boolean = false;
+  dimensionsAccepted: boolean = false;
+
+
   constructor(public navCtrl: NavController,
     public websocketMessageHandlerProvider: WebsocketMessageHandlerProvider,
     public navParams: NavParams,
@@ -79,6 +86,15 @@ export class SettingPage implements OnInit {
             this.selectedClosingHour = "sunrise-" + Math.abs(Number(hoursSettings.off_offset));
       });
 
+      this.adminProvider.getBuildingDimensions().subscribe(resp => {
+          if (resp['height'] > 0)
+            this.buildingHeight = resp['height'];
+          if (resp['width'] > 0)
+            this.buildingWidth = resp['width'];
+          if (resp['amount'] > 0)
+            this.totalAmount = resp['amount'];
+        });
+
     this.authentication.isFacadeUp()
       .subscribe(res => {
         this.selectedFrontageState = res.state
@@ -118,8 +134,27 @@ export class SettingPage implements OnInit {
   goToMeshPage() {
     //this.websocketMessageHandlerProvider.resetFlags();
     this.dataFAppsProvider.launchFApp(this.fAppOptions)
-      .subscribe(response => this.navCtrl.push(MeshPage), err => console.log(err));
-    //this.navCtrl.push(MeshPage);
+        .subscribe(response => this.navCtrl.push(MeshPage), err => console.log(err));
+    }
+
+  validateDimensions() {
+      if (this.buildingHeight > 0 && this.buildingWidth > 0 && this.totalAmount > 0
+      && this.totalAmount <= this.buildingHeight * this.buildingWidth) {
+
+          let dimensions = {
+              width: this.buildingWidth,
+              height: this.buildingHeight,
+              amount: this.totalAmount
+          }
+
+          this.adminProvider.setBuildingDimensions(dimensions).subscribe(resp => {
+              this.badDimensions = false;
+              this.dimensionsAccepted = true;
+          });
+      }
+      else {
+          this.badDimensions = true;
+      }
   }
 
   /**

@@ -4,34 +4,17 @@
 
 <ion-content padding class="bg">
     <ion-card-content>
-    <ion-item class="item-settings">
-            <ion-label>{{'MESH_PAGE_AMOUNT_LABEL' | translate}}</ion-label>
-            <ion-input [(ngModel)]="totalAmount" [disabled]="!enableValidation" type="number" min="1" clearInput></ion-input>
-    </ion-item>
-
-    <ion-item class="item-settings">
-        <ion-label>{{'MESH_PAGE_HEIGHT_LABEL' | translate}}</ion-label>
-        <ion-input [(ngModel)]="buildingHeight" [disabled]="!enableValidation" type="number" min="1" clearInput></ion-input>
-    </ion-item>
-
-    <ion-item item-text-wrap class="item-settings">
-        <ion-label text-wrap>{{'MESH_PAGE_WIDTH_LABEL' | translate}}</ion-label>
-        <ion-input [(ngModel)]="buildingWidth" [disabled]="!enableValidation" type="number" min="1" clearInput></ion-input>
-    </ion-item>
-
 
     <ion-item>
-      <button ion-button [disabled]="!enableValidation" icon-end full color="secondary" class="tr" (click)="validateDimensions()">
+      <button ion-button icon-end full color="secondary" class="tr" (click)="validateDimensions()">
         {{"MESH_VALIDATION_BUTTON" | translate}}
         <ion-icon color="secondary" ios="ios-validate-dimension" md="md-validate-dimension"></ion-icon>
       </button>
     </ion-item>
-    <ion-label text-center *ngIf="isRefused" color="danger">{{"BUILDING_DIMENSIONS_REJECTED" | translate}}
-    </ion-label>
     </ion-card-content>
 
     <ion-card>
-      <ion-card-header text-wrap color="light" id="instructions" hidden="true">{{'MESH_PAGE_INSTRUCTION' | translate}} </ion-card-header>
+      <ion-card-header text-wrap color="light" id="instructions" >{{'MESH_PAGE_INSTRUCTION' | translate}} </ion-card-header>
     </ion-card>
 
     <ion-card>
@@ -41,12 +24,12 @@
     <ion-grid>
         <ion-row no-padding no-margin *ngFor="let row of grid">
             <ion-col  padding-0 *ngFor="let element of row">
-                <button [disabled]="enableValidation" no-margin ion-button color="light" (click)="matrixTouched(element, $event)"></button>
+                <button no-margin ion-button color="light" (click)="matrixTouched(element, $event)"></button>
             </ion-col>
         </ion-row>
     </ion-grid>
 
-    <ion-item hidden="true" id="pixel_buttons">
+    <ion-item id="pixel_buttons">
         <button inline ion-button icon-end full color="secondary" class="tr" (click)="confirmPixels()">
           {{"CONFIRM_PIXEL_ATTRIBUTION_BUTTON" | translate}}
           <ion-icon color="secondary" ios="ios-confirm-attribution" md="md-confirm-attribution"></ion-icon>

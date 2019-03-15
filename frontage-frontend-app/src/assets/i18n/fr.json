@@ -114,7 +114,7 @@
     "MESH_PAGE_INSTRUCTION": "Cliquer sur la matrice la position de la led qui est allumée",
     "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Confirmer pixel",
     "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Annuler pixel",
-    "BUILDING_DIMENSIONS_REJECTED": "Veuillez inserer les bonnes dimensions",
+    "BUILDING_DIMENSIONS_REJECTED": "Veuillez inserer les bonnes valeurs",
 
 
     "GET_OUT":"Désolé, vous n'avez plus l'autorisation de jouer.",

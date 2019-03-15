@@ -71,27 +71,30 @@ export class MeshPage {
         label: res
       };
     });
-    setTimeout(()=>
-      {websocketMessageHandler.initSocket(navCtrl);
-      this.enableValidation = true;},
-        5000
-    );
+    this.adminProvider.getBuildingDimensions().subscribe(resp => {
+        if (resp['height'] > 0)
+          this.buildingHeight = resp['height'];
+        if (resp['width'] > 0)
+          this.buildingWidth = resp['width'];
+        if (resp['amount'] > 0)
+          this.totalAmount = resp['amount'];
+
+        this.createGrid();
+      });
+
+      setTimeout(() => {
+          websocketMessageHandler.initSocket(navCtrl);
+          this.enableValidation = true;}, 5000);
+
   }
   /**
    * Init data
    */
   ngOnInit() {
-      this.adminProvider.getBuildingDimensions().subscribe(resp => {
-          if (resp['height'] > 0)
-            this.buildingHeight = resp['height'];
-          if (resp['width'] > 0)
-            this.buildingWidth = resp['width'];
-          if (resp['amount'] > 0)
-            this.totalAmount = resp['amount'];
-        });
   }
 
   createGrid() {
+
       this.grid = new Array(this.buildingHeight);
 
       for (let i = 0; i < this.buildingHeight; i++) {
@@ -100,42 +103,6 @@ export class MeshPage {
               this.grid[i][j] = i*this.buildingWidth+j;
           }
       }
-
-      let inst = document.getElementById("instructions");
-      let buttons = document.getElementById("pixel_buttons");
-      inst.hidden = false;
-      buttons.hidden = false;
-
-  }
-
-  validateDimensions() {
-
-
-      if (this.buildingHeight > 0 && this.buildingWidth > 0 && this.totalAmount > 0
-      && this.totalAmount <= this.buildingHeight * this.buildingWidth) {
-          if (this.grid != null) // if there was already a grid, we create another one
-            this.grid = null
-
-          this.createGrid();
-
-          let dimensions = {
-              width: this.buildingWidth,
-              height: this.buildingHeight,
-              amount: this.totalAmount
-          }
-
-          this.adminProvider.setBuildingDimensions(dimensions).subscribe(resp => {console.log(resp);});
-          this.enableValidation = false;
-          this.isRefused = false;
-
-          console.log("height:" + this.buildingHeight + " width:" + this.buildingWidth)
-
-      }
-
-      else {
-          this.isRefused = true;
-      }
-
   }
 
   matrixTouched(element: number, event: Event) {
