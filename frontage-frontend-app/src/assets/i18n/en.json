@@ -106,6 +106,7 @@
     "SETTINGS_PAGE_DEFAULT_LIFETIME": "Lifetime of default apps",
 
     "MESH_CONFIGURATION_BUTTON": "Configure mesh network",
+    "MESH_PAGE_TITLE": "Mesh Network",
     "MESH_PAGE_AMOUNT_LABEL": "Amount of ESP cards",
     "MESH_PAGE_HEIGHT_LABEL": "Lines",
     "MESH_PAGE_WIDTH_LABEL": "Columns",
@@ -113,6 +114,10 @@
     "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Confirm pixel",
     "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Undo pixel",
     "BUILDING_DIMENSIONS_REJECTED": "Please enter valid dimensions",
+    "GRID_PAGE_TITLE": "Manual Adressing",
+    "MESH_PAGE_BACK_BUTTON": "Back to Mesh",
+    "RAC_PAGE_TITLE": "Readdressing",
+
 
 
     "GET_OUT":"Sorry, you can no longer play.",

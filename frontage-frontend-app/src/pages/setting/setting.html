@@ -32,47 +32,13 @@
     <ion-input type="number" [(ngModel)]="lifetime" min="30" max="1800" (ionChange)="updateLifetime()"></ion-input>
   </ion-item>
 
-  <!-- Add a button calling goToMeshPage so the admin can adjust the dimension of the building -->
-
-  <ion-item class="item-settings">
-          <ion-label>{{'MESH_PAGE_AMOUNT_LABEL' | translate}}</ion-label>
-          <ion-input [(ngModel)]="totalAmount" [disabled]="dimensionsAccepted" type="number" min="1" clearInput></ion-input>
-  </ion-item>
-
-  <ion-item class="item-settings">
-      <ion-label>{{'MESH_PAGE_HEIGHT_LABEL' | translate}}</ion-label>
-      <ion-input [(ngModel)]="buildingHeight" [disabled]="dimensionsAccepted" type="number" min="1" clearInput></ion-input>
-  </ion-item>
-
-  <ion-item item-text-wrap class="item-settings">
-      <ion-label text-wrap>{{'MESH_PAGE_WIDTH_LABEL' | translate}}</ion-label>
-      <ion-input [(ngModel)]="buildingWidth" [disabled]="dimensionsAccepted" type="number" min="1" clearInput></ion-input>
-  </ion-item>
 
 <ion-item>
-  <button ion-button full color="secondary" class="tr" [disabled]="dimensionsAccepted" (click)="validateDimensions()">
-    Valider dimensions du réseau Mesh
-  </button>
-</ion-item>
-
-<ion-label text-center *ngIf="badDimensions" color="danger">{{"BUILDING_DIMENSIONS_REJECTED" | translate}}
-</ion-label>
-
-<ion-item>
-  <button ion-button icon-end full [disabled]="!dimensionsAccepted" color="secondary" class="tr" (click)="goToMeshPage()">
-    AMA
+  <button ion-button icon-end full color="secondary" class="tr" (click)="goToMeshPage()">
+    {{"MESH_PAGE_TITLE" | translate}}
     <ion-icon color="secondary" ios="ios-log-in" md="md-log-in"></ion-icon>
   </button>
 </ion-item>
-
-<ion-item>
-  <button ion-button icon-end full color="secondary" [disabled]="true" class="tr">
-    RAC
-    <ion-icon color="secondary" ios="ios-log-in" md="md-log-in"></ion-icon>
-  </button>
-</ion-item>
-
-
 </ion-content>
 
 <ion-footer>

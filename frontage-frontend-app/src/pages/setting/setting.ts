@@ -21,7 +21,6 @@ export class SettingPage implements OnInit {
   frontageStateList: any[] = [];
   selectedOpeningHour: String;
   selectedClosingHour: String;
-  fAppOptions: any;
 
   lifetime: number;
 
@@ -64,9 +63,6 @@ export class SettingPage implements OnInit {
       };
       this.frontageStateList.push(scheduled);
     });
-    this.fAppOptions = {
-      name: "Ama"
-    };
   }
   /**
    * Init data
@@ -132,9 +128,7 @@ export class SettingPage implements OnInit {
   }
 
   goToMeshPage() {
-    //this.websocketMessageHandlerProvider.resetFlags();
-    this.dataFAppsProvider.launchFApp(this.fAppOptions)
-        .subscribe(response => this.navCtrl.push(MeshPage), err => console.log(err));
+    this.navCtrl.push(MeshPage);
     }
 
   validateDimensions() {

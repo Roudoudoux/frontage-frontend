@@ -1,35 +1,45 @@
 <ion-header>
-  <ion-title>{{"SETTINGS_PAGE_TITLE" | translate}}</ion-title>
+  <ion-title>{{"MESH_PAGE_TITLE" | translate}}</ion-title>
 </ion-header>
 
 <ion-content padding class="bg">
-    <ion-card>
-      <ion-card-header text-wrap color="light" id="instructions" >{{'MESH_PAGE_INSTRUCTION' | translate}} </ion-card-header>
-    </ion-card>
+  <ion-item class="item-settings">
+          <ion-label>{{'MESH_PAGE_AMOUNT_LABEL' | translate}}</ion-label>
+          <ion-input [(ngModel)]="totalAmount" [disabled]="dimensionsAccepted" type="number" min="1" clearInput></ion-input>
+  </ion-item>
 
-    <ion-card>
-      <ion-card-header text-wrap id="text" color="light">{{addressedAmount}}/{{totalAmount}} </ion-card-header>
-    </ion-card>
+  <ion-item class="item-settings">
+      <ion-label>{{'MESH_PAGE_HEIGHT_LABEL' | translate}}</ion-label>
+      <ion-input [(ngModel)]="buildingHeight" [disabled]="dimensionsAccepted" type="number" min="1" clearInput></ion-input>
+  </ion-item>
 
-    <ion-grid>
-        <ion-row no-padding no-margin *ngFor="let row of grid">
-            <ion-col  padding-0 *ngFor="let element of row">
-                <button no-margin ion-button color="light" [disabled]="!enableValidation" (click)="matrixTouched(element, $event)"></button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+  <ion-item item-text-wrap class="item-settings">
+      <ion-label text-wrap>{{'MESH_PAGE_WIDTH_LABEL' | translate}}</ion-label>
+      <ion-input [(ngModel)]="buildingWidth" [disabled]="dimensionsAccepted" type="number" min="1" clearInput></ion-input>
+  </ion-item>
 
-    <ion-item id="pixel_buttons">
-        <button inline ion-button icon-end full color="secondary" class="tr" (click)="confirmPixels()">
-          {{"CONFIRM_PIXEL_ATTRIBUTION_BUTTON" | translate}}
-          <ion-icon color="secondary" ios="ios-confirm-attribution" md="md-confirm-attribution"></ion-icon>
-        </button>
-      <button ion-button icon-end full color="secondary" class="tr" (click)="undoPixel()">
-        {{"RETURN_PIXEL_ATTRIBUTION_BUTTON" | translate}}
-        <ion-icon color="secondary" ios="ios-return-attribution" md="md-return-attribution"></ion-icon>
-      </button>
-    </ion-item>
+<ion-item>
+  <button ion-button full color="secondary" class="tr" [disabled]="dimensionsAccepted" (click)="validateDimensions()">
+    Valider dimensions du réseau Mesh
+  </button>
+</ion-item>
 
+<ion-label text-center *ngIf="badDimensions" color="danger">{{"BUILDING_DIMENSIONS_REJECTED" | translate}}
+</ion-label>
+
+<ion-item>
+  <button ion-button icon-end full [disabled]="!dimensionsAccepted" color="secondary" class="tr" (click)="goToGridPage()">
+      {{"GRID_PAGE_TITLE" | translate}}
+    <ion-icon color="secondary" ios="ios-log-in" md="md-log-in"></ion-icon>
+  </button>
+</ion-item>
+
+<ion-item>
+  <button ion-button icon-end full color="secondary" [disabled]="true" class="tr">
+      {{"RAC_PAGE_TITLE" | translate}}
+    <ion-icon color="secondary" ios="ios-log-in" md="md-log-in"></ion-icon>
+  </button>
+</ion-item>
 
 
 </ion-content>

@@ -105,7 +105,8 @@
     "SETTINGS_PAGE_UNFORCE_BUTTON":"Relâcher l'application forcée",
     "SETTINGS_PAGE_DEFAULT_LIFETIME": "Durée des applications",
 
-    "MESH_CONFIGURATION_BUTTON": "Configurer réseau mesh",
+    "MESH_CONFIGURATION_BUTTON": "Configurer réseau Mesh",
+    "MESH_PAGE_TITLE": "Réseau Mesh",
     "MESH_PAGE_AMOUNT_LABEL": "Nombre de cartes ESP",
     "MESH_PAGE_HEIGHT_LABEL": "Nombre de lignes",
     "MESH_PAGE_WIDTH_LABEL": "Nombre de colonnes",
@@ -115,6 +116,12 @@
     "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Confirmer pixel",
     "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Annuler pixel",
     "BUILDING_DIMENSIONS_REJECTED": "Veuillez inserer les bonnes valeurs",
+    "GRID_PAGE_TITLE": "Adressage manuel",
+    "MESH_PAGE_BACK_BUTTON": "Retour à Mesh",
+    "RAC_PAGE_TITLE": "Readressage à chaud",
+
+
+
 
 
     "GET_OUT":"Désolé, vous n'avez plus l'autorisation de jouer.",
