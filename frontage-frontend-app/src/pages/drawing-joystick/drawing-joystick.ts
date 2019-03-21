@@ -16,14 +16,16 @@ import { NavController, NavParams, Platform, AlertController } from 'ionic-angul
 export class DrawingJoystickPage {
   @Input()
   isAdmin: boolean;
+  grid: Array<Array<number>>; //array of arrays
+
 
   parametersList: string;
   selectedParameter: string[];
 
   baseCss:string = "opacity:1;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;";
 
-  frontageHeight:Number = 4;
-  frontageWidth:Number = 19;
+  frontageHeight:number;
+  frontageWidth:number;
 
   currentColorHexa:any;
   pixelMatrix: Array<Array<SafeStyle>>;
@@ -53,6 +55,15 @@ export class DrawingJoystickPage {
 
     this.pixelMatrix = new Array<Array<SafeStyle>>();
 
+    this.adminProvider.getBuildingDimensions().subscribe(resp => {
+      if (resp['height'] > 0)
+        this.frontageHeight = resp['height'];
+      if (resp['width'] > 0)
+        this.frontageWidth = resp['width'];
+
+      this.createGrid();
+    });
+
     for(let i=0; i<this.frontageHeight; i++){
       this.pixelMatrix.push(new Array<SafeStyle>(this.frontageWidth))
     }
@@ -78,6 +89,18 @@ export class DrawingJoystickPage {
       this.optionsSentMessage = translatedMesssage;
     });
   }
+
+  createGrid() {
+
+    this.grid = new Array(this.frontageHeight);
+
+    for (let i = 0; i < this.frontageHeight; i++) {
+        this.grid[i] = new Array(this.frontageWidth);
+        for (let j = 0; j < this.frontageWidth; j++) {
+            this.grid[i][j] = i*this.frontageWidth+j;
+        }
+    }
+}
 
   handleStart(ev) {
     this.updateColor(ev);
