@@ -8,6 +8,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { DataFAppsProvider } from './../../providers/data-f-apps/data-f-apps';
 import { WebsocketMessageHandlerProvider } from './../../providers/websocket-message-handler/websocket-message-handler';
 import { GridPage } from '../grid/grid';
+import { RacPage } from '../rac/rac';
 
 
 @Component({
@@ -35,7 +36,8 @@ export class MeshPage {
       public dataFAppsProvider: DataFAppsProvider) {
 
       this.fAppOptions = {
-        name: "Ama"
+        name: "Ama",
+        ama: true
       };
     }
     /**
@@ -60,10 +62,16 @@ export class MeshPage {
     }
 
     goToGridPage() {
-        console.log("porra");
+        this.fAppOptions.ama = true;
       this.adminProvider.launchForcedFApp(this.fAppOptions)
           .subscribe(response => this.navCtrl.push(GridPage), err => console.log(err));
       }
+
+    goToRacPage() {
+        this.fAppOptions.ama = false;
+        this.adminProvider.launchForcedFApp(this.fAppOptions)
+            .subscribe(response => this.navCtrl.push(RacPage), err => console.log(err));
+    }
 
     validateDimensions() {
         if (this.buildingHeight > 0 && this.buildingWidth > 0 && this.totalAmount > 0

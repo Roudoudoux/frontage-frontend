@@ -27,6 +27,8 @@ import { HomePage } from '../pages/home/home';
 import { FAppListPage } from '../pages/f-app-list/f-app-list';
 import { MeshPage } from '../pages/mesh/mesh';
 import { GridPage } from '../pages/grid/grid';
+import { RacPage } from '../pages/rac/rac';
+
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -65,6 +67,7 @@ let components:any[] = [
     FAppListPage,
     MeshPage,
     GridPage,
+    RacPage,
     WaitingPage,
     FlagsOptionsPage,
     FlagsJoytickPage,
