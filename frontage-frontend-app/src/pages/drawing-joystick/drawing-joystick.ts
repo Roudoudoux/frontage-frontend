@@ -22,6 +22,8 @@ export class DrawingJoystickPage {
   parametersList: string;
   selectedParameter: string[];
 
+  colorHexaSave: string;
+
   baseCss:string = "opacity:1;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;";
 
   frontageHeight:number;
@@ -111,8 +113,19 @@ export class DrawingJoystickPage {
   }
 
   updateColor(ev) {
-    let currentElement = document.elementFromPoint(ev.touches[0].pageX, ev.touches[0].pageY);
+
+    console.log(this.colorHexaSave);
+
+    let targetElement : HTMLButtonElement = ev.target as HTMLButtonElement;
+
+    console.log("A");
+
+    let currentElement = document.elementFromPoint(ev.pageX, ev.pageY);
     let id = currentElement.id;
+
+    console.log("B");
+
+    targetElement.style.background = this.colorHexaSave;
     
     if (id!==this.lastElementClickedId) {
       this.lastElementClickedId = id;
@@ -121,7 +134,6 @@ export class DrawingJoystickPage {
   
         let pixel = {x:tokens[1], y:tokens[2]};
         this.pixelMatrix[pixel.x][pixel.y] = this.sanitizer.bypassSecurityTrustStyle(this.baseCss+"fill:" + this.currentColorHexa[0]);
-  
         let color = {red:this.currentColorHexa[1][0], green:this.currentColorHexa[1][1], blue:this.currentColorHexa[1][2]};
         this.websocketMessageHandler.send(JSON.stringify({pixel:pixel, color:color}));
       }
@@ -154,12 +166,18 @@ export class DrawingJoystickPage {
     let greenHexa = this.decimalToHexa(green);
     let blueHexa = this.decimalToHexa(blue);
 
+    this.colorHexaSave = "#"+redHexa+greenHexa+blueHexa;
+
+
     let colorHexa = "#"+redHexa+greenHexa+blueHexa;
 
     this.currentColorHexa = [colorHexa, [red, green, blue]];
 
     this.switchCSSVisibility("c-" + red + "-" + green + "-" + blue + "-select", "visible");
     this.switchCSSVisibility(previousColorRGB + "-select", "hidden");
+
+    console.log(this.colorHexaSave);
+
   }
 
   stopFApp() {

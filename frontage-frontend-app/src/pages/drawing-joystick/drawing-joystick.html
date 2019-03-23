@@ -217,7 +217,7 @@
     <ion-grid>
         <ion-row no-padding no-margin *ngFor="let row of grid">
             <ion-col  padding-0 *ngFor="let element of row">
-                <button no-margin ion-button color="light" [disabled]="!enableValidation" (touchstart)="handleStart($event)" (touchmove)="handleMove($event)"></button>
+                <button no-margin ion-button color="light" (touchstart)="handleStart($event)" (click)="handleMove($event)" (touchmove)="handleMove($event)"></button>
             </ion-col>
         </ion-row>
     </ion-grid>
