@@ -37,8 +37,11 @@ export class MeshPage {
 
       this.fAppOptions = {
         name: "Ama",
-        ama: true
-      };
+        params: {
+          uapp: "true"
+        }
+      }
+
     }
     /**
      * Init data
@@ -62,13 +65,15 @@ export class MeshPage {
     }
 
     goToGridPage() {
-        this.fAppOptions.ama = true;
+      this.fAppOptions.params.uapp = "true";
+      console.log(this.fAppOptions);
       this.adminProvider.launchForcedFApp(this.fAppOptions)
           .subscribe(response => this.navCtrl.push(GridPage), err => console.log(err));
       }
 
     goToRacPage() {
-        this.fAppOptions.ama = false;
+        this.fAppOptions.params.uapp = "false";
+        console.log(this.fAppOptions);
         this.adminProvider.launchForcedFApp(this.fAppOptions)
             .subscribe(response => this.navCtrl.push(RacPage), err => console.log(err));
     }

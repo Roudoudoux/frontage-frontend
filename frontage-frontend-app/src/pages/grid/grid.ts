@@ -165,6 +165,7 @@ export class GridPage {
   }
 
   ionViewDidLeave(){
+    console.log("stopping everything");
     this.dataFAppsProvider.stopApp();
     this.websocketMessageHandler.closeSocket();
     this.websocketMessageHandler.stopKeepAliveSender();
