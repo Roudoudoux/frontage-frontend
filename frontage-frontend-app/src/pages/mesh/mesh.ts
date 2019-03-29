@@ -26,6 +26,8 @@ export class MeshPage {
     badDimensions: boolean = false;
     dimensionsAccepted: boolean = false;
 
+    loading: boolean = false;
+
 
     constructor(public navCtrl: NavController,
       public websocketMessageHandlerProvider: WebsocketMessageHandlerProvider,
@@ -33,12 +35,13 @@ export class MeshPage {
       public adminProvider: AdminProvider,
       public authentication: AuthenticationProvider,
       public translateService: TranslateService,
-      public dataFAppsProvider: DataFAppsProvider) {
+      public dataFAppsProvider: DataFAppsProvider,
+      private alertCtrl: AlertController) {
 
       this.fAppOptions = {
         name: "Ama",
         params: {
-          uapp: "true"
+          mode: "",
         }
       }
 
@@ -65,18 +68,59 @@ export class MeshPage {
     }
 
     goToGridPage() {
-      this.fAppOptions.params.uapp = "true";
+      this.fAppOptions.params.uapp = "ama";
       console.log(this.fAppOptions);
       this.adminProvider.launchForcedFApp(this.fAppOptions)
           .subscribe(response => this.navCtrl.push(GridPage), err => console.log(err));
       }
 
     goToRacPage() {
-        this.fAppOptions.params.uapp = "false";
+        this.fAppOptions.params.uapp = "rac";
         console.log(this.fAppOptions);
         this.adminProvider.launchForcedFApp(this.fAppOptions)
             .subscribe(response => this.navCtrl.push(RacPage), err => console.log(err));
     }
+
+    skip() {
+        this.fAppOptions.params.mode = "skip";
+        this.adminProvider.launchForcedFApp(this.fAppOptions)
+            .subscribe(response => this.showSkipPopUp(), err => console.log(err));
+
+    }
+
+    showSkipPopUp() {
+
+        this.loading = true;
+        let loader = document.getElementById("loader");
+        loader.style.visibility = "visible";
+
+      setTimeout(() => {
+
+          loader.style.visibility = "hidden";
+          this.loading = false;
+
+          const popUp = this.alertCtrl.create({
+            title: "Charging Addressing",//this.getTranslation(titleKey),
+            message: "The previous addressing was loaded from the database", //this.getTranslation(messageKey),
+            enableBackdropDismiss: false,
+            buttons: [{
+              text: 'Ok',
+              handler: () => {
+              popUp.dismiss().then(() => {
+                  this.dataFAppsProvider.stopApp();
+                  this.navCtrl.pop();
+                });
+                return false;
+              }
+            }]
+          });
+
+          popUp.present();
+
+    }, this.totalAmount*100);
+
+    }
+
 
     validateDimensions() {
         if (this.buildingHeight > 0 && this.buildingWidth > 0 && this.totalAmount > 0

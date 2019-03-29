@@ -114,9 +114,10 @@
     "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Confirm pixel",
     "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Undo pixel",
     "BUILDING_DIMENSIONS_REJECTED": "Please enter valid dimensions",
-    "GRID_PAGE_TITLE": "Manual Adressing",
+    "GRID_PAGE_TITLE": "Manual Addressing",
     "MESH_PAGE_BACK_BUTTON": "Back to Mesh",
     "RAC_PAGE_TITLE": "Readdressing",
+    "SKIP_PAGE_TITLE": "Load Stored Addressing",
 
 
 
