@@ -168,20 +168,20 @@ export class RacPage {
       let splitted = pixels.split("), ");
 
       this.totalAmount = splitted.length;
-      let x: Number;
-      let y: Number;
+      let x: number;
+      let y: number;
       for (let i = 0; i < this.totalAmount; i++) {
           let current = splitted[i].substring(1);
           if (i == 0) {
-              x = Number(current[1]);
-              y = Number(current[4]);
+              x = +current[1];
+              y = +current[4];
           }
           else {
-              x = Number(current[0]);
-              y = Number(current[3]);
+              x = +current[0];
+              y = +current[3];
           }
           let id = String(this.grid[y][x]);
-          let cell = document.getElementById(id);
+          let cell = <HTMLInputElement> document.getElementById(id);
           cell.disabled = false;
       }
   }
