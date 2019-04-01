@@ -16,14 +16,18 @@ import { NavController, NavParams, Platform, AlertController } from 'ionic-angul
 export class DrawingJoystickPage {
   @Input()
   isAdmin: boolean;
+  grid: Array<Array<number>>; //array of arrays
+
 
   parametersList: string;
   selectedParameter: string[];
 
+  colorHexaSave: string;
+
   baseCss:string = "opacity:1;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;";
 
-  frontageHeight:Number = 4;
-  frontageWidth:Number = 19;
+  frontageHeight:number;
+  frontageWidth:number;
 
   currentColorHexa:any;
   pixelMatrix: Array<Array<SafeStyle>>;
@@ -53,6 +57,15 @@ export class DrawingJoystickPage {
 
     this.pixelMatrix = new Array<Array<SafeStyle>>();
 
+    this.adminProvider.getBuildingDimensions().subscribe(resp => {
+      if (resp['height'] > 0)
+        this.frontageHeight = resp['height'];
+      if (resp['width'] > 0)
+        this.frontageWidth = resp['width'];
+
+      this.createGrid();
+    });
+
     for(let i=0; i<this.frontageHeight; i++){
       this.pixelMatrix.push(new Array<SafeStyle>(this.frontageWidth))
     }
@@ -79,6 +92,18 @@ export class DrawingJoystickPage {
     });
   }
 
+  createGrid() {
+
+    this.grid = new Array(this.frontageHeight);
+
+    for (let i = 0; i < this.frontageHeight; i++) {
+        this.grid[i] = new Array(this.frontageWidth);
+        for (let j = 0; j < this.frontageWidth; j++) {
+            this.grid[i][j] = i*this.frontageWidth+j;
+        }
+    }
+}
+
   handleStart(ev) {
     this.updateColor(ev);
   }
@@ -88,8 +113,19 @@ export class DrawingJoystickPage {
   }
 
   updateColor(ev) {
-    let currentElement = document.elementFromPoint(ev.touches[0].pageX, ev.touches[0].pageY);
+
+    console.log(this.colorHexaSave);
+
+    let targetElement : HTMLButtonElement = ev.target as HTMLButtonElement;
+
+    console.log("A");
+
+    let currentElement = document.elementFromPoint(ev.pageX, ev.pageY);
     let id = currentElement.id;
+
+    console.log("B");
+
+    targetElement.style.background = this.colorHexaSave;
     
     if (id!==this.lastElementClickedId) {
       this.lastElementClickedId = id;
@@ -98,7 +134,6 @@ export class DrawingJoystickPage {
   
         let pixel = {x:tokens[1], y:tokens[2]};
         this.pixelMatrix[pixel.x][pixel.y] = this.sanitizer.bypassSecurityTrustStyle(this.baseCss+"fill:" + this.currentColorHexa[0]);
-  
         let color = {red:this.currentColorHexa[1][0], green:this.currentColorHexa[1][1], blue:this.currentColorHexa[1][2]};
         this.websocketMessageHandler.send(JSON.stringify({pixel:pixel, color:color}));
       }
@@ -131,12 +166,18 @@ export class DrawingJoystickPage {
     let greenHexa = this.decimalToHexa(green);
     let blueHexa = this.decimalToHexa(blue);
 
+    this.colorHexaSave = "#"+redHexa+greenHexa+blueHexa;
+
+
     let colorHexa = "#"+redHexa+greenHexa+blueHexa;
 
     this.currentColorHexa = [colorHexa, [red, green, blue]];
 
     this.switchCSSVisibility("c-" + red + "-" + green + "-" + blue + "-select", "visible");
     this.switchCSSVisibility(previousColorRGB + "-select", "hidden");
+
+    console.log(this.colorHexaSave);
+
   }
 
   stopFApp() {
