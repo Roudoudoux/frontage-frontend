@@ -68,14 +68,14 @@ export class MeshPage {
     }
 
     goToGridPage() {
-      this.fAppOptions.params.uapp = "ama";
+      this.fAppOptions.params.mode = "ama";
       console.log(this.fAppOptions);
       this.adminProvider.launchForcedFApp(this.fAppOptions)
           .subscribe(response => this.navCtrl.push(GridPage), err => console.log(err));
       }
 
     goToRacPage() {
-        this.fAppOptions.params.uapp = "rac";
+        this.fAppOptions.params.mode = "rac";
         console.log(this.fAppOptions);
         this.adminProvider.launchForcedFApp(this.fAppOptions)
             .subscribe(response => this.navCtrl.push(RacPage), err => console.log(err));
@@ -101,7 +101,7 @@ export class MeshPage {
 
           const popUp = this.alertCtrl.create({
             title: "Charging Addressing",//this.getTranslation(titleKey),
-            message: "The previous addressing was loaded from the database", //this.getTranslation(messageKey),
+            message: "The previous addressing was loaded from the database : please don't close this popup until visual verification ended.", //this.getTranslation(messageKey),
             enableBackdropDismiss: false,
             buttons: [{
               text: 'Ok',

@@ -161,29 +161,58 @@ export class RacPage {
   }
 
   enableDownPixels() {
-
+      let ind : any;
       let pixels = this.websocketMessageHandler.getPixelsDown();
+      console.log("Pixel getting procedure ongoing...");
+      console.log(typeof(pixels))
+      console.log(pixels);
 
       console.log("pixels: " + pixels);
-      let splitted = pixels.split("), ");
-
-      this.totalAmount = splitted.length;
-      let x: number;
-      let y: number;
-      for (let i = 0; i < this.totalAmount; i++) {
-          let current = splitted[i].substring(1);
-          if (i == 0) {
-              x = +current[1];
-              y = +current[4];
-          }
-          else {
-              x = +current[0];
-              y = +current[3];
-          }
-          let id = String(this.grid[y][x]);
-          let cell = <HTMLInputElement> document.getElementById(id);
-          cell.disabled = false;
+      let comp : number = 0;
+      for (ind in pixels) {
+        comp++;
       }
+      this.totalAmount = comp;
+      let x : number;
+      let y : number;
+      for (ind in pixels) {
+        console.log("starting cell");
+        x = Number(pixels[ind][0]);
+        y = Number(pixels[ind][1]);
+        console.log(x, y);
+        let id = String(this.grid[x][y]);
+        console.log(id);
+        let cell = <HTMLInputElement> document.getElementById(id);
+        cell.disabled = false;
+        console.log("cell over");
+      }
+      // let splitted = pixels.split("), ");
+      //
+      // console.log("splitted: "+splitted);
+      //
+      // this.totalAmount = splitted.length;
+      // console.log("totamount : " + this.totalAmount);
+      // let x: number;
+      // let y: number;
+      // for (let i = 0; i < this.totalAmount; i++) {
+      //     console.log("Cell starting...");
+      //     let current = splitted[i].substring(1);
+      //     if (i == 0) {
+      //         x = +current[1];
+      //         y = +current[4];
+      //     }
+      //     else {
+      //         x = +current[0];
+      //         y = +current[3];
+      //     }
+      //     console.log(x, y);
+      //     let id = String(this.grid[y][x]);
+      //     console.log(id);
+      //     let cell = <HTMLInputElement> document.getElementById(id);
+      //     cell.disabled = false;
+      //     console.log("cell done");
+      // }
+      console.log("Pixel retrieved.");
   }
   /**
    * Navigation

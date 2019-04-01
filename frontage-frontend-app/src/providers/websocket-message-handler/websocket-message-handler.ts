@@ -186,6 +186,9 @@ export class WebsocketMessageHandlerProvider {
       if (this.pixelsDown != "") {
           let down = this.pixelsDown;
           this.pixelsDown = "";
+          console.log("From websocket :")
+          console.log(down);
+          console.log(typeof(down));
           return down;
       }
       else {
