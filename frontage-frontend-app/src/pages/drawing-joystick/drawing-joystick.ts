@@ -104,39 +104,38 @@ export class DrawingJoystickPage {
     }
 }
 
-  handleStart(ev) {
-    this.updateColor(ev);
+  handleStart(ev, rowIndex, colIndex) {
+    this.updateColor(ev, rowIndex, colIndex);
   }
 
-  handleMove(ev) {
-    this.updateColor(ev);
+  handleMove(ev, rowIndex, colIndex) {
+    this.updateColor(ev, rowIndex, colIndex);
   }
 
-  updateColor(ev) {
+  updateColor(ev, rowIndex, colIndex) {
 
     console.log(this.colorHexaSave);
 
     let targetElement : HTMLButtonElement = ev.target as HTMLButtonElement;
 
-    console.log("A");
 
     let currentElement = document.elementFromPoint(ev.pageX, ev.pageY);
+    console.log(currentElement);
     let id = currentElement.id;
 
-    console.log("B");
 
     targetElement.style.background = this.colorHexaSave;
+
+    console.log(id);
     
-    if (id!==this.lastElementClickedId) {
+    if (id!==this.lastElementClickedId || id=="") {
       this.lastElementClickedId = id;
-      if (id.startsWith("px-")){
-        let tokens = id.split('-');
-  
-        let pixel = {x:tokens[1], y:tokens[2]};
-        this.pixelMatrix[pixel.x][pixel.y] = this.sanitizer.bypassSecurityTrustStyle(this.baseCss+"fill:" + this.currentColorHexa[0]);
-        let color = {red:this.currentColorHexa[1][0], green:this.currentColorHexa[1][1], blue:this.currentColorHexa[1][2]};
-        this.websocketMessageHandler.send(JSON.stringify({pixel:pixel, color:color}));
-      }
+      let pixel ={x:rowIndex, y:colIndex};
+      console.log(pixel);
+      this.pixelMatrix[pixel.x][pixel.y] = this.sanitizer.bypassSecurityTrustStyle(this.baseCss+"fill:" + this.currentColorHexa[0]);
+      let color = {red:this.currentColorHexa[1][0], green:this.currentColorHexa[1][1], blue:this.currentColorHexa[1][2]};
+      this.websocketMessageHandler.send(JSON.stringify({pixel:pixel, color:color}));
+      
     }
   }
 

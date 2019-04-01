@@ -215,9 +215,9 @@
     <!--------------------------------------------------- DRAWING MATRIX (BUILDING) ------------------------------------------------------------------------------------------------------>
     
     <ion-grid>
-        <ion-row no-padding no-margin *ngFor="let row of grid">
-            <ion-col  padding-0 *ngFor="let element of row">
-                <button no-margin ion-button color="light" (touchstart)="handleStart($event)" (click)="handleMove($event)" (touchmove)="handleMove($event)"></button>
+        <ion-row class="row" no-padding no-margin *ngFor="let row of grid; let rowIndex=index">
+            <ion-col class="col" padding-0 *ngFor="let element of row; let colIndex=index">
+                <button no-margin ion-button color="light" (touchstart)="handleStart($event, rowIndex, colIndex)" (click)="handleMove($event, rowIndex, colIndex)" (touchmove)="handleMove($event, rowIndex, colIndex)"></button>
             </ion-col>
         </ion-row>
     </ion-grid>
