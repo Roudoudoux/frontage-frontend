@@ -126,13 +126,11 @@ export class DrawingJoystickPage {
 
     targetElement.style.background = this.colorHexaSave;
 
-    console.log(id);
     
     if (id!==this.lastElementClickedId || id=="") {
       this.lastElementClickedId = id;
       let pixel ={x:rowIndex, y:colIndex};
-      console.log(pixel);
-      this.pixelMatrix[pixel.x][pixel.y] = this.sanitizer.bypassSecurityTrustStyle(this.baseCss+"fill:" + this.currentColorHexa[0]);
+      // this.pixelMatrix[pixel.x][pixel.y] = this.sanitizer.bypassSecurityTrustStyle(this.baseCss+"fill:" + this.colorHexaSave);
       let color = {red:this.currentColorHexa[1][0], green:this.currentColorHexa[1][1], blue:this.currentColorHexa[1][2]};
       this.websocketMessageHandler.send(JSON.stringify({pixel:pixel, color:color}));
       
