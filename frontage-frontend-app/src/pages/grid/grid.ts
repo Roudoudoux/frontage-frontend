@@ -28,7 +28,7 @@ export class GridPage {
   enableValidation:boolean=false;
   finished:boolean=false;
 
-  popupMessage:String;
+  popupMessage:string;
 
 
 

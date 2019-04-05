@@ -28,7 +28,7 @@ export class RacPage {
   enableValidation:boolean=false;
   finished:boolean=false;
 
-  popupMessage:String;
+  popupMessage:string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,

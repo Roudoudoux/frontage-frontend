@@ -28,7 +28,7 @@ export class MeshPage {
 
     loading: boolean = false;
 
-    popupMessage: String;
+    popupMessage: string;
 
     constructor(public navCtrl: NavController,
       public websocketMessageHandlerProvider: WebsocketMessageHandlerProvider,
