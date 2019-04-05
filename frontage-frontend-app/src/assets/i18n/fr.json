@@ -111,7 +111,8 @@
     "MESH_PAGE_HEIGHT_LABEL": "Nombre de lignes",
     "MESH_PAGE_WIDTH_LABEL": "Nombre de colonnes",
     "MESH_PAGE_INSTRUCTION": "Appuyez sur les fenêtre qui correspondent à laquelle qui clignote",
-    "MESH_VALIDATION_BUTTON": "Commencer l'adressage manuel",
+    "MESH_VALIDATION_BUTTON": "Valider les dimensions de l'installation",
+    "MESH_INSTRUCTIONS": "Appuyez sur la matrice sur les pixels qui clignotent",
     "MESH_PAGE_INSTRUCTION": "Cliquer sur la matrice la position de la led qui est allumée",
     "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Confirmer pixel",
     "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Annuler pixel",
@@ -119,9 +120,9 @@
     "GRID_PAGE_TITLE": "Adressage manuel",
     "MESH_PAGE_BACK_BUTTON": "Retour à Mesh",
     "RAC_PAGE_TITLE": "Readressage à chaud",
-    "SKIP_PAGE_TITLE": "Charger Adressage Stocké",
-
-
+    "SKIP_PAGE_TITLE": "Charger adressage stocké",
+    "MESH_ADDRESSING_COMPLETE": "L'adressage a été stocké",
+    "MESH_LOAD_ADDRESSING": "L'adressage stocké dans la base de données a été chargé. Veuillez attendre la confirmation visuel pour fermer ce popup",
 
 
 

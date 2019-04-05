@@ -110,7 +110,8 @@
     "MESH_PAGE_AMOUNT_LABEL": "Amount of ESP cards",
     "MESH_PAGE_HEIGHT_LABEL": "Lines",
     "MESH_PAGE_WIDTH_LABEL": "Columns",
-    "MESH_VALIDATION_BUTTON": "Start addressing procedure",
+    "MESH_VALIDATION_BUTTON": "Validate installation dimensions",
+    "MESH_INSTRUCTIONS": "Select in the matrix the position of the pixel which blinks",
     "CONFIRM_PIXEL_ATTRIBUTION_BUTTON": "Confirm pixel",
     "RETURN_PIXEL_ATTRIBUTION_BUTTON": "Undo pixel",
     "BUILDING_DIMENSIONS_REJECTED": "Please enter valid dimensions",
@@ -118,7 +119,8 @@
     "MESH_PAGE_BACK_BUTTON": "Back to Mesh",
     "RAC_PAGE_TITLE": "Readdressing",
     "SKIP_PAGE_TITLE": "Load Stored Addressing",
-
+    "MESH_ADDRESSING_COMPLETE": "The addressing has been saved",
+    "MESH_LOAD_ADDRESSING": "The previous addressing was loaded from the database. Please don't close this popup until visual confirmation",
 
 
     "GET_OUT":"Sorry, you can no longer play.",

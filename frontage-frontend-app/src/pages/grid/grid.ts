@@ -28,6 +28,8 @@ export class GridPage {
   enableValidation:boolean=false;
   finished:boolean=false;
 
+  popupMessage:String;
+
 
 
   constructor(public navCtrl: NavController,
@@ -46,6 +48,9 @@ export class GridPage {
     this.buildingHeight = 0;
     this.markedPixel = null;
 
+    this.translateService.get("MESH_ADDRESSING_COMPLETE").subscribe(resp => {
+        this.popupMessage = resp;
+    });
 
     this.adminProvider.getBuildingDimensions().subscribe(resp => {
         if (resp['height'] > 0)
@@ -120,18 +125,8 @@ export class GridPage {
                     this.adminProvider.getInitialised().subscribe(resp => {
                         console.log(resp);
                     });
-
-            // while (!initialised) {
-            // setTimeout(() =>
-            //     {
-            //         this.adminProvider.getInitialised().subscribe(resp => {
-            //             initialised = resp['initialised'];
-            //         });
-            //     }, 1000);
-            // }
-            //
             const alert = this.alertController.create({
-                message: 'La configuration a été stocké',
+                message: this.popupMessage,
                 buttons: [{
                     text: 'Ok',
                     handler: () => {

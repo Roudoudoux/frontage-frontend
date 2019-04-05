@@ -28,6 +28,7 @@ export class MeshPage {
 
     loading: boolean = false;
 
+    popupMessage: String;
 
     constructor(public navCtrl: NavController,
       public websocketMessageHandlerProvider: WebsocketMessageHandlerProvider,
@@ -50,6 +51,11 @@ export class MeshPage {
      * Init data
      */
     ngOnInit() {
+
+        this.translateService.get("MESH_LOAD_ADDRESSING").subscribe(resp => {
+            this.popupMessage = resp;
+        });
+
         this.adminProvider.getBuildingDimensions().subscribe(resp => {
             if (resp['height'] > 0)
               this.buildingHeight = resp['height'];
@@ -100,8 +106,7 @@ export class MeshPage {
           this.loading = false;
 
           const popUp = this.alertCtrl.create({
-            title: "Charging Addressing",//this.getTranslation(titleKey),
-            message: "The previous addressing was loaded from the database : please don't close this popup until visual verification ended.", //this.getTranslation(messageKey),
+            message: this.popupMessage,
             enableBackdropDismiss: false,
             buttons: [{
               text: 'Ok',

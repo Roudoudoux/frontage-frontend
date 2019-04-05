@@ -28,7 +28,7 @@ export class RacPage {
   enableValidation:boolean=false;
   finished:boolean=false;
 
-
+  popupMessage:String;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -46,6 +46,9 @@ export class RacPage {
     this.buildingHeight = 0;
     this.markedPixel = null;
 
+    this.translateService.get("MESH_ADDRESSING_COMPLETE").subscribe(resp => {
+        this.popupMessage = resp;
+    });
 
     this.adminProvider.getBuildingDimensions().subscribe(resp => {
         if (resp['height'] > 0)
@@ -125,17 +128,8 @@ export class RacPage {
                         console.log(resp);
                     });
 
-            // while (!initialised) {
-            // setTimeout(() =>
-            //     {
-            //         this.adminProvider.getInitialised().subscribe(resp => {
-            //             initialised = resp['initialised'];
-            //         });
-            //     }, 1000);
-            // }
-            //
             const alert = this.alertController.create({
-                message: 'La configuration a été stocké',
+                message: this.popupMessage,
                 buttons: [{
                     text: 'Ok',
                     handler: () => {
@@ -186,32 +180,6 @@ export class RacPage {
         cell.disabled = false;
         console.log("cell over");
       }
-      // let splitted = pixels.split("), ");
-      //
-      // console.log("splitted: "+splitted);
-      //
-      // this.totalAmount = splitted.length;
-      // console.log("totamount : " + this.totalAmount);
-      // let x: number;
-      // let y: number;
-      // for (let i = 0; i < this.totalAmount; i++) {
-      //     console.log("Cell starting...");
-      //     let current = splitted[i].substring(1);
-      //     if (i == 0) {
-      //         x = +current[1];
-      //         y = +current[4];
-      //     }
-      //     else {
-      //         x = +current[0];
-      //         y = +current[3];
-      //     }
-      //     console.log(x, y);
-      //     let id = String(this.grid[y][x]);
-      //     console.log(id);
-      //     let cell = <HTMLInputElement> document.getElementById(id);
-      //     cell.disabled = false;
-      //     console.log("cell done");
-      // }
       console.log("Pixel retrieved.");
   }
   /**
