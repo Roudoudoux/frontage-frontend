@@ -75,14 +75,12 @@ export class MeshPage {
 
     goToGridPage() {
       this.fAppOptions.params.mode = "ama";
-      console.log(this.fAppOptions);
       this.adminProvider.launchForcedFApp(this.fAppOptions)
           .subscribe(response => this.navCtrl.push(GridPage), err => console.log(err));
       }
 
     goToRacPage() {
         this.fAppOptions.params.mode = "rac";
-        console.log(this.fAppOptions);
         this.adminProvider.launchForcedFApp(this.fAppOptions)
             .subscribe(response => this.navCtrl.push(RacPage), err => console.log(err));
     }

@@ -103,13 +103,6 @@ export class RacPage {
 
           this.markedPixel = targetElement;
           targetElement.style.background = '#299a29';
-
-          console.log(JSON.stringify({x:column, y:row}))
-          console.log(this.websocketMessageHandler.send(JSON.stringify({x:column, y:row})));
-          this.adminProvider.getInitialised().subscribe(resp => {
-              console.log(resp);
-          });
-
       }
   }
 
@@ -122,11 +115,6 @@ export class RacPage {
 
          if (this.addressedAmount == this.totalAmount) {
             this.finished = true;
-
-            let initialised = 0;
-                    this.adminProvider.getInitialised().subscribe(resp => {
-                        console.log(resp);
-                    });
 
             const alert = this.alertController.create({
                 message: this.popupMessage,
@@ -157,11 +145,7 @@ export class RacPage {
   enableDownPixels() {
       let ind : any;
       let pixels = this.websocketMessageHandler.getPixelsDown();
-      console.log("Pixel getting procedure ongoing...");
-      console.log(typeof(pixels))
-      console.log(pixels);
 
-      console.log("pixels: " + pixels);
       let comp : number = 0;
       for (ind in pixels) {
         comp++;
@@ -170,17 +154,12 @@ export class RacPage {
       let x : number;
       let y : number;
       for (ind in pixels) {
-        console.log("starting cell");
         x = Number(pixels[ind][0]);
         y = Number(pixels[ind][1]);
-        console.log(x, y);
         let id = String(this.grid[x][y]);
-        console.log(id);
         let cell = <HTMLInputElement> document.getElementById(id);
         cell.disabled = false;
-        console.log("cell over");
       }
-      console.log("Pixel retrieved.");
   }
   /**
    * Navigation

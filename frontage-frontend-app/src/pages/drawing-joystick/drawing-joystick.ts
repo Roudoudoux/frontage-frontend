@@ -52,7 +52,7 @@ export class DrawingJoystickPage {
     if (this.platform.is('mobile')) {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
     }
-    
+
     this.currentColorHexa=["#ff0000", [255,0,0]];
 
     this.pixelMatrix = new Array<Array<SafeStyle>>();
@@ -114,26 +114,23 @@ export class DrawingJoystickPage {
 
   updateColor(ev, rowIndex, colIndex) {
 
-    console.log(this.colorHexaSave);
-
     let targetElement : HTMLButtonElement = ev.target as HTMLButtonElement;
 
 
     let currentElement = document.elementFromPoint(ev.pageX, ev.pageY);
-    console.log(currentElement);
     let id = currentElement.id;
 
 
     targetElement.style.background = this.colorHexaSave;
 
-    
+
     if (id!==this.lastElementClickedId || id=="") {
       this.lastElementClickedId = id;
       let pixel ={x:rowIndex, y:colIndex};
       // this.pixelMatrix[pixel.x][pixel.y] = this.sanitizer.bypassSecurityTrustStyle(this.baseCss+"fill:" + this.colorHexaSave);
       let color = {red:this.currentColorHexa[1][0], green:this.currentColorHexa[1][1], blue:this.currentColorHexa[1][2]};
       this.websocketMessageHandler.send(JSON.stringify({pixel:pixel, color:color}));
-      
+
     }
   }
 
@@ -173,8 +170,6 @@ export class DrawingJoystickPage {
     this.switchCSSVisibility("c-" + red + "-" + green + "-" + blue + "-select", "visible");
     this.switchCSSVisibility(previousColorRGB + "-select", "hidden");
 
-    console.log(this.colorHexaSave);
-
   }
 
   stopFApp() {
@@ -197,7 +192,7 @@ export class DrawingJoystickPage {
       this.websocketMessageHandler.closeSocket();
     }
     this.websocketMessageHandler.stopKeepAliveSender();
-    
+
     if (this.platform.is('mobile')) {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
       this.screenOrientation.unlock();
@@ -232,5 +227,5 @@ export class DrawingJoystickPage {
       .subscribe(response => this.validateActionSucceeded(response.done, this.optionsSentTitle, this.optionsSentMessage, false),
                  err => console.log(err));
   }
-  
+
 }

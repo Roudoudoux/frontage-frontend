@@ -102,12 +102,6 @@ export class GridPage {
           this.markedPixel = targetElement;
           targetElement.style.background = '#299a29';
 
-          console.log(JSON.stringify({x:column, y:row}))
-          console.log(this.websocketMessageHandler.send(JSON.stringify({x:column, y:row})));
-          this.adminProvider.getInitialised().subscribe(resp => {
-              console.log(resp);
-          });
-
       }
   }
 
@@ -121,10 +115,6 @@ export class GridPage {
          if (this.addressedAmount == this.totalAmount) {
             this.finished = true;
 
-            let initialised = 0;
-                    this.adminProvider.getInitialised().subscribe(resp => {
-                        console.log(resp);
-                    });
             const alert = this.alertController.create({
                 message: this.popupMessage,
                 buttons: [{
