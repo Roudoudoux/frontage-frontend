@@ -1,8 +1,8 @@
-import { Vibration } from '@ionic-native/vibration';
+// import { Vibration } from '@ionic-native/vibration';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationProvider } from './../../providers/authentication/authentication';
 import { AdminProvider } from './../../providers/admin/admin';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { DataFAppsProvider } from './../../providers/data-f-apps/data-f-apps';
@@ -28,7 +28,7 @@ export class MeshPage {
 
     loading: boolean = false;
 
-    popupMessage: String;
+    popupMessage: string;
 
     constructor(public navCtrl: NavController,
       public websocketMessageHandlerProvider: WebsocketMessageHandlerProvider,

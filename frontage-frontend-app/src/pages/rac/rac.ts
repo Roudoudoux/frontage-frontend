@@ -1,7 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationProvider } from './../../providers/authentication/authentication';
 import { AdminProvider } from './../../providers/admin/admin';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { DataFAppsProvider } from './../../providers/data-f-apps/data-f-apps';
@@ -28,7 +28,7 @@ export class RacPage {
   enableValidation:boolean=false;
   finished:boolean=false;
 
-  popupMessage:String;
+  popupMessage:string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -123,7 +123,7 @@ export class RacPage {
          if (this.addressedAmount == this.totalAmount) {
             this.finished = true;
 
-            let initialised = 0;
+            // let initialised = 0;
                     this.adminProvider.getInitialised().subscribe(resp => {
                         console.log(resp);
                     });
